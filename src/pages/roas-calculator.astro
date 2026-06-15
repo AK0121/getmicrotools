@@ -4,11 +4,13 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
 // Page Metadata
-const title = "ROAS & Profitability Engine | Get Micro Tools";
-const description = "Calculate your Return on Ad Spend, break-even points, and net profit for marketing campaigns.";
+const title = "ROAS Calculator | Break-Even & Profitability Tool | Get Micro Tools";
+const description = "Calculate your Return on Ad Spend (ROAS), break-even points, and net profit with our free ROAS calculator. Essential for Facebook, Google, and TikTok ads.";
+const keywords = "roas calculator, break even roas calculator, breakeven roas calculator, marketing profit calculator, ad spend ROI";
+const url = "https://getmicro.tools/roas-calculator";
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} keywords={keywords} url={url}>
   <Nav />
 
   <main class="min-h-screen bg-canvas transition-colors duration-500">
@@ -35,12 +37,29 @@ const description = "Calculate your Return on Ad Spend, break-even points, and n
             <h2 class="text-xs font-semibold uppercase tracking-widest text-muted mb-6">Campaign Variables</h2>
             
             <div class="space-y-5">
+              {/* Currency Selector */}
+              <div class="space-y-2">
+                <label class="text-sm text-ink font-medium" for="currency-select">Currency</label>
+                <select id="currency-select" class="w-full bg-canvas-soft border border-hairline rounded-xl px-4 py-3 text-ink focus:outline-none focus:border-primary transition-all">
+                  <option value="$" selected>USD - US Dollar ($)</option>
+                  <option value="€">EUR - Euro (€)</option>
+                  <option value="£">GBP - British Pound (£)</option>
+                  <option value="₹">INR - Indian Rupee (₹)</option>
+                  <option value="¥">JPY - Japanese Yen (¥)</option>
+                  <option value="A$">AUD - Australian Dollar (A$)</option>
+                  <option value="C$">CAD - Canadian Dollar (C$)</option>
+                  <option value="CHF">CHF - Swiss Franc (Fr)</option>
+                  <option value="S$">SGD - Singapore Dollar (S$)</option>
+                  <option value="AED">AED - UAE Dirham (د.إ)</option>
+                </select>
+              </div>
+
               {/* Ad Spend */}
               <div class="space-y-2">
                 <label class="text-sm text-ink font-medium" for="ad-spend">Total Ad Spend</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">$</span>
-                  <input type="number" id="ad-spend" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted currency-label font-mono font-medium">$</span>
+                  <input type="number" id="ad-spend" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-14 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
                 </div>
               </div>
 
@@ -48,26 +67,45 @@ const description = "Calculate your Return on Ad Spend, break-even points, and n
               <div class="space-y-2">
                 <label class="text-sm text-ink font-medium" for="revenue">Revenue Generated</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">$</span>
-                  <input type="number" id="revenue" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted currency-label font-mono font-medium">$</span>
+                  <input type="number" id="revenue" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-14 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
                 </div>
               </div>
 
-              {/* COGS / Product Cost per Unit */}
+              {/* Profit Margin */}
               <div class="space-y-2">
-                <label class="text-sm text-ink font-medium" for="cost-per-unit">Cost of Goods Sold / Product Cost per Unit</label>
+                <label class="text-sm text-ink font-medium" for="profit-margin">Profit Margin (%)</label>
                 <div class="relative">
-                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">$</span>
-                  <input type="number" id="cost-per-unit" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                  <span class="absolute right-4 top-1/2 -translate-y-1/2 text-muted">%</span>
+                  <input type="number" id="profit-margin" placeholder="100" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-4 pr-10 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" value="100" />
                 </div>
+                <p class="text-[10px] text-muted">Percentage of revenue that is profit before ad spend (e.g., 40% means COGS is 60%)</p>
               </div>
 
-              {/* Total Units Sold */}
-              <div class="space-y-2">
-                <label class="text-sm text-ink font-medium" for="units-sold">Total Units Sold</label>
-                <div class="relative">
-                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">#</span>
-                  <input type="number" id="units-sold" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+              <button id="btn-estimate" class="w-full py-4 bg-ink text-canvas rounded-xl font-semibold hover:opacity-90 transition-all active:scale-[0.98]">
+                Estimate Profitability
+              </button>
+            </div>
+          </div>
+
+          {/* Visual Chart Area (Initially Hidden) */}
+          <div id="chart-container" class="hidden p-8 rounded-2xl bg-surface-card border border-hairline shadow-sm space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h2 class="text-xs font-semibold uppercase tracking-widest text-muted">Profit Breakdown</h2>
+            <div class="space-y-6">
+              <div class="relative h-12 w-full bg-canvas-soft rounded-full overflow-hidden flex border border-hairline">
+                <div id="bar-spend" class="h-full bg-red-500/20 border-r border-red-500/30 transition-all duration-1000 ease-out" style="width: 0%"></div>
+                <div id="bar-profit" class="h-full bg-emerald-500/20 transition-all duration-1000 ease-out" style="width: 0%"></div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-sm bg-red-500/40"></div>
+                  <span class="text-muted">Ad Spend: </span>
+                  <span id="label-spend-pct" class="font-medium text-ink">0%</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-sm bg-emerald-500/40"></div>
+                  <span class="text-muted">Net Profit: </span>
+                  <span id="label-profit-pct" class="font-medium text-ink">0%</span>
                 </div>
               </div>
             </div>
@@ -118,6 +156,106 @@ const description = "Calculate your Return on Ad Spend, break-even points, and n
         </div>
 
       </div>
+
+      {/* SEO Content Section */}
+      <section class="mt-24 max-w-4xl mx-auto prose prose-ink dark:prose-invert">
+        <h2 class="text-3xl font-bold mb-8">ROAS Calculator: The Ultimate Tool for Marketing Profitability</h2>
+        <p>
+          In the fast-paced world of digital marketing, data is your most valuable asset. But data without interpretation is just noise. One of the most critical metrics for any advertiser—whether you're running Facebook Ads, Google Search campaigns, or influencer partnerships—is <strong>Return on Ad Spend (ROAS)</strong>. 
+        </p>
+        <p>
+          Our professional <strong>ROAS calculator</strong> is designed to help you strip away the complexity and see exactly how your campaigns are performing. But we don't just stop at a simple ratio; we provide a comprehensive <strong>break even ROAS calculator</strong> to ensure you know the exact point where your marketing becomes profitable.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-12 mb-4">What is ROAS?</h3>
+        <p>
+          ROAS stands for Return on Ad Spend. It is a marketing metric that measures the amount of gross revenue your business earns for every dollar it spends on advertising. 
+        </p>
+        <div class="bg-surface-strong p-6 rounded-xl border border-hairline my-8">
+          <p class="text-center font-mono text-lg mb-0">ROAS = Gross Revenue / Ad Spend</p>
+        </div>
+        <p>
+          For example, if you spend $1,000 on ads and generate $5,000 in revenue, your ROAS is 5.0x (or 500%). This means for every dollar you spent, you earned five dollars back.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-12 mb-4">Why You Need a ROAS Calculator</h3>
+        <p>
+          Calculating ROAS manually is easy, but understanding the nuances of profitability requires more depth. A high ROAS doesn't always mean a campaign is successful if your profit margins are thin. That's where our tool excels. By incorporating your profit margins, we help you calculate your <strong>breakeven ROAS</strong>.
+        </p>
+
+        <h4 class="text-xl font-semibold mt-8 mb-4">ROAS vs. ROI: What's the Difference?</h4>
+        <p>
+          While they are often used interchangeably, ROAS and ROI (Return on Investment) measure different things:
+        </p>
+        <ul>
+          <li><strong>ROAS</strong> focuses purely on the effectiveness of your ad spend in terms of revenue.</li>
+          <li><strong>ROI</strong> takes into account all expenses, including cost of goods sold (COGS), shipping, and overhead, to show the final net profit.</li>
+        </ul>
+        <p>
+          Our calculator bridges this gap by allowing you to input your profit margin, giving you a clearer picture of your actual net profit after ad spend.
+        </p>
+
+        <h3 class="text-2xl font-semibold mt-12 mb-4">Understanding Break Even ROAS</h3>
+        <p>
+          The most common question marketers ask is: "What is a good ROAS?" The answer is always: "It depends on your margins."
+        </p>
+        <p>
+          This is why a <strong>break even ROAS calculator</strong> is essential. Your break-even ROAS is the point at which your gross profit equals your ad spend. If your ROAS is higher than your break-even point, you are making money. If it's lower, you are losing money on every sale.
+        </p>
+        <div class="bg-surface-strong p-6 rounded-xl border border-hairline my-8 text-center">
+          <p class="font-mono text-lg mb-2">Break-even ROAS = 1 / Profit Margin %</p>
+          <p class="text-sm text-muted">Example: 40% Margin = 1 / 0.4 = 2.5x Break-even</p>
+        </div>
+
+        <h3 class="text-2xl font-semibold mt-12 mb-4">How to Improve Your ROAS</h3>
+        <p>
+          Once you've used our <strong>breakeven ROAS calculator</strong> to determine your baseline, you can focus on optimization. Here are three key ways to boost your performance:
+        </p>
+        <ol>
+          <li><strong>Optimize Conversion Rates:</strong> Small tweaks to your landing pages can significantly increase revenue without increasing spend.</li>
+          <li><strong>Refine Targeting:</strong> Stop wasting money on audiences that don't convert. Use data to double down on your most profitable segments.</li>
+          <li><strong>Creative Testing:</strong> Ad fatigue is real. Regularly testing new visuals and copy ensures your ROAS remains high over time.</li>
+        </ol>
+
+        <h3 class="text-2xl font-semibold mt-12 mb-4">Use Our Free ROAS Calculator Today</h3>
+        <p>
+          Whether you are a seasoned media buyer or a small business owner just starting with ads, our tool provides the clarity you need. Enter your ad spend, total revenue, and profit margin to see your live metrics dashboard. 
+        </p>
+        <p>
+          Stop guessing and start growing with our professional-grade <strong>roas calculator</strong>.
+        </p>
+      </section>
+
+      {/* FAQ Section */}
+      <section class="mt-24 max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center">ROAS Frequently Asked Questions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
+            <h3 class="font-bold text-lg mb-3">What is a good ROAS?</h3>
+            <p class="text-sm text-muted">A "good" ROAS depends on your profit margins. If you have high margins (80%), a 2.0x ROAS might be great. If you have low margins (20%), you might need a 5.0x ROAS just to break even.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
+            <h3 class="font-bold text-lg mb-3">How do I calculate break-even ROAS?</h3>
+            <p class="text-sm text-muted">The formula is 1 / Profit Margin %. For example, if your margin is 50%, your break-even ROAS is 1 / 0.5 = 2.0x. Use our <strong>break even roas calculator</strong> above to get your exact number.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
+            <h3 class="font-bold text-lg mb-3">Why is my ROAS dropping?</h3>
+            <p class="text-sm text-muted">Common reasons include ad fatigue (audience getting bored), increased competition, or technical issues on your website's checkout page.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
+            <h3 class="font-bold text-lg mb-3">Is ROAS better than ROI?</h3>
+            <p class="text-sm text-muted">ROAS measures specific ad effectiveness, while ROI measures the total profitability of the business. Both are important for a complete marketing strategy.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
+            <h3 class="font-bold text-lg mb-3">Can ROAS be negative?</h3>
+            <p class="text-sm text-muted">No, ROAS is always a positive number or zero. However, your <strong>net profit</strong> can be negative if your ad spend exceeds your gross profit.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
+            <h3 class="font-bold text-lg mb-3">Does ROAS include shipping costs?</h3>
+            <p class="text-sm text-muted">Typically, ROAS only looks at Revenue / Ad Spend. However, when calculating your <strong>profit margin</strong> for our calculator, you should factor in all costs like shipping and COGS.</p>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -127,25 +265,40 @@ const description = "Calculate your Return on Ad Spend, break-even points, and n
   <script is:inline>
     const adSpendInput = document.getElementById('ad-spend');
     const revenueInput = document.getElementById('revenue');
-    const costPerUnitInput = document.getElementById('cost-per-unit');
-    const unitsSoldInput = document.getElementById('units-sold');
+    const marginInput = document.getElementById('profit-margin');
+    const currencySelect = document.getElementById('currency-select');
+    const btnEstimate = document.getElementById('btn-estimate');
 
     const resultRoas = document.getElementById('result-roas');
     const resultProfit = document.getElementById('result-profit');
     const breakEvenRoas = document.getElementById('break-even-roas');
     const profitCurrency = document.getElementById('profit-currency');
     const profitBadge = document.getElementById('profit-badge');
+    const currencyLabels = document.querySelectorAll('.currency-label');
 
-    const calculate = () => {
+    const chartContainer = document.getElementById('chart-container');
+    const barSpend = document.getElementById('bar-spend');
+    const barProfit = document.getElementById('bar-profit');
+    const labelSpendPct = document.getElementById('label-spend-pct');
+    const labelProfitPct = document.getElementById('label-profit-pct');
+
+    const updateCurrency = () => {
+      const selected = currencySelect.value;
+      currencyLabels.forEach(el => el.innerText = selected);
+      profitCurrency.innerText = selected;
+    };
+
+    const calculate = (showChart = false) => {
       const spend = parseFloat(adSpendInput.value) || 0;
       const revenue = parseFloat(revenueInput.value) || 0;
-      const costPerUnit = parseFloat(costPerUnitInput.value) || 0;
-      const units = parseFloat(unitsSoldInput.value) || 0;
+      const margin = (parseFloat(marginInput.value) || 0) / 100;
+      const currency = currencySelect.value;
 
       // Calculations
       const roas = spend > 0 ? (revenue / spend) : 0;
-      const netProfit = revenue - spend - (costPerUnit * units);
-      const beRoas = spend > 0 ? ((spend + (costPerUnit * units)) / spend) : 0;
+      const grossProfit = revenue * margin;
+      const netProfit = grossProfit - spend;
+      const beRoas = margin > 0 ? (1 / margin) : 0;
 
       // Update ROAS & Break-Even UI
       resultRoas.innerText = roas.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -157,28 +310,62 @@ const description = "Calculate your Return on Ad Spend, break-even points, and n
       if (netProfit > 0) {
         resultProfit.className = "text-5xl md:text-6xl font-light text-emerald-500 tracking-tighter transition-colors duration-300";
         profitCurrency.className = "text-3xl text-emerald-500/50 font-light transition-colors duration-300";
-        profitCurrency.innerText = "$";
+        profitCurrency.innerText = currency;
         
         profitBadge.className = "inline-block px-2 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border border-emerald-500/20 bg-emerald-500/10 text-emerald-500";
         profitBadge.innerText = "Profitable";
       } else if (netProfit < 0) {
         resultProfit.className = "text-5xl md:text-6xl font-light text-red-500 tracking-tighter transition-colors duration-300";
         profitCurrency.className = "text-3xl text-red-500/50 font-light transition-colors duration-300";
-        profitCurrency.innerText = "-$";
+        profitCurrency.innerText = "-" + currency;
         
         profitBadge.className = "inline-block px-2 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border border-red-500/20 bg-red-500/10 text-red-500";
         profitBadge.innerText = "Loss";
       } else {
         resultProfit.className = "text-5xl md:text-6xl font-light text-ink tracking-tighter transition-colors duration-300";
         profitCurrency.className = "text-3xl text-muted font-light transition-colors duration-300";
-        profitCurrency.innerText = "$";
+        profitCurrency.innerText = currency;
         profitBadge.className = "hidden";
+      }
+
+      if (showChart && revenue > 0) {
+        chartContainer.classList.remove('hidden');
+        
+        // Calculate percentages for the chart relative to revenue
+        const spendPct = (spend / revenue) * 100;
+        const profitPct = (netProfit / revenue) * 100;
+        
+        // We cap the visual bars at 100% total
+        const visualSpend = Math.min(spendPct, 100);
+        const visualProfit = Math.max(0, Math.min(profitPct, 100 - visualSpend));
+
+        setTimeout(() => {
+          barSpend.style.width = `${visualSpend}%`;
+          barProfit.style.width = `${visualProfit}%`;
+          labelSpendPct.innerText = `${Math.round(spendPct)}%`;
+          labelProfitPct.innerText = `${Math.max(0, Math.round(profitPct))}%`;
+        }, 50);
       }
     };
 
     // Attach listeners
-    [adSpendInput, revenueInput, costPerUnitInput, unitsSoldInput].forEach(input => {
-      input.addEventListener('input', calculate);
+    [adSpendInput, revenueInput, marginInput].forEach(input => {
+      input.addEventListener('input', () => calculate(false));
+    });
+
+    currencySelect.addEventListener('change', () => {
+      updateCurrency();
+      calculate(false);
+    });
+
+    btnEstimate.addEventListener('click', () => {
+      calculate(true);
+      // Scroll to chart on mobile
+      if (window.innerWidth < 1024) {
+        chartContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     });
   </script>
+</Layout>
+/script>
 </Layout>

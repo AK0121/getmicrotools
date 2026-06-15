@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const tools = [
+  {
+    name: "Engagement Rate Calculator",
+    description: "Calculate authentic engagement across social platforms to measure real influence.",
+    href: "/engagement-rate-calculator"
+  },
+  {
+    name: "Instagram Reels Overlay Tester",
+    description: "Preview how your Reels will look with UI overlays to ensure your content is never blocked.",
+    href: "/instagram-reels-overlay-tester"
+  },
+  {
+    name: "LinkedIn Preview Formatter",
+    description: "Optimize your LinkedIn posts and previews for maximum professional impact.",
+    href: "/linkedin-preview-formatter"
+  },
+  {
+    name: "ROAS & Profitability Calculator",
+    description: "Deep dive into your ad spend efficiency and overall business profitability.",
+    href: "/roas-calculator"
+  }
+];
+---
+
+<Layout 
+  title="About Us | Get Micro Tools"
+  description="Learn more about Abhishek and the mission behind Get Micro Tools - empowering the creator economy with professional-grade utilities."
+  keywords="about abhishek, creator economy tools, influencer utilities, agency marketing tools"
+>
+  <Nav />
+  
+  <main class="max-w-4xl mx-auto px-6 py-20 md:py-32">
+    <section class="mb-20">
+      <header class="text-center mb-16">
+        <h1 class="text-display-md md:text-display-lg text-ink mb-6">Built for the Creator Economy</h1>
+        <p class="text-body-lg text-muted max-w-2xl mx-auto leading-relaxed">
+          Get Micro Tools is a collection of high-performance utilities designed to solve the specific, daily challenges of modern digital entrepreneurs.
+        </p>
+      </header>
+
+      <div class="bg-surface-card border border-hairline rounded-2xl p-8 md:p-12 shadow-sm">
+        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+          <div class="w-24 h-24 bg-primary/10 rounded-full flex-shrink-0 flex items-center justify-center overflow-hidden border-2 border-primary/20">
+            <span class="text-3xl font-bold text-primary">A</span>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-display-xs text-ink mb-4">Meet Abhishek</h2>
+            <div class="space-y-4 text-body text-muted leading-relaxed">
+              <p>
+                Hi, I'm Abhishek. I created <strong>Get Micro Tools</strong> because I saw a gap in the market. While there are many complex, expensive marketing platforms out there, there's a shortage of simple, focused, and free tools that just <em>work</em>.
+              </p>
+              <p>
+                Whether you're an independent influencer trying to prove your value to brands, or an agency owner managing dozen of campaigns, you shouldn't have to fight with complex spreadsheets or pay for "pro" features just to calculate your ROAS or test a Reel overlay.
+              </p>
+              <p>
+                This website is my contribution to the creator economy—a set of "micro" utilities that provide "macro" value.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-20">
+      <h2 class="text-display-sm text-ink mb-12 text-center">Our Toolset So Far</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {tools.map(tool => (
+          <div class="group bg-surface-card border border-hairline rounded-xl p-6 hover:border-primary/50 transition-all hover:shadow-md">
+            <h3 class="text-ink font-semibold mb-2 group-hover:text-primary transition-colors">{tool.name}</h3>
+            <p class="text-body-sm text-muted mb-4 leading-relaxed">
+              {tool.description}
+            </p>
+            <a href={tool.href} class="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all">
+              Try it now 
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="text-center py-12 bg-canvas-soft rounded-2xl border border-hairline">
+      <h2 class="text-display-xs text-ink mb-4">Have an idea for a tool?</h2>
+      <p class="text-body text-muted mb-8 max-w-md mx-auto">
+        I'm constantly building and adding new tools to this collection. If there's a utility that would make your life easier, let me know.
+      </p>
+      <a href="/contact" class="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-active transition-all active:scale-95 shadow-sm">
+        Get in Touch
+      </a>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -4,9 +4,22 @@ import "../styles/global.css";
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	url?: string;
+	type?: string;
+	keywords?: string;
 }
 
-const { title = "Get Micro Tools", description = "Professional utilities for modern creators" } = Astro.props;
+const { 
+	title = "Get Micro Tools | High-Performance Utilities for Creators", 
+	description = "A curated collection of free, professional-grade utilities for modern creators and marketers. Engagement calculators, ROAS engines, and social formatters in one place.",
+	image = "/apple-touch-icon.png",
+	url = "https://getmicro.tools",
+	type = "website",
+	keywords = "creator tools, micro tools, engagement rate calculator, social media metrics, ROAS calculator, instagram reels tester"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://getmicro.tools");
 ---
 
 <!doctype html>
@@ -16,8 +29,25 @@ const { title = "Get Micro Tools", description = "Professional utilities for mod
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<link rel="canonical" href={canonicalURL} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, url)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, url)} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">

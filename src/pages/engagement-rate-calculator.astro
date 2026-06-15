@@ -4,11 +4,18 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
 // Page Metadata
-const title = "Engagement Rate Calculator | Get Micro Tools";
-const description = "Calculate your true engagement rate across Instagram, TikTok, and X with professional-grade accuracy.";
+const title = "Engagement Rate Calculator - Free Social Media Tool | Get Micro Tools";
+const description = "Calculate your engagement rate across Instagram, TikTok, Facebook, and YouTube with our free tool. Get professional-grade metrics for your social media growth.";
+const keywords = "Engagement Rate Calculator, instagram engagement rate calculator, tiktok engagement rate calculator, facebook engagement rate calculator, free engagement rate calculator, social media engagement rate calculator, youtube engagement rate calculator";
+const url = "https://getmicro.tools/engagement-rate-calculator";
 ---
 
-<Layout title={title} description={description}>
+<Layout 
+  title={title} 
+  description={description} 
+  keywords={keywords}
+  url={url}
+>
   <Nav />
 
   <main class="min-h-screen bg-canvas">
@@ -28,18 +35,34 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
     {/* Calculator Section */}
     <section class="max-w-4xl mx-auto px-6 pb-24">
       <div class="bg-surface-card rounded-lg border border-hairline overflow-hidden shadow-sm">
-        {/* Tabs */}
-        <div class="flex border-b border-hairline bg-canvas-soft">
+        {/* Tabs - Scrollable on mobile */}
+        <div class="flex overflow-x-auto no-scrollbar border-b border-hairline bg-canvas-soft">
           <button 
-            id="tab-ig-tt"
-            class="flex-1 py-4 text-sm font-medium transition-colors border-b-2 border-primary text-ink bg-surface-card"
-            data-tab="ig-tt"
+            class="flex-none px-6 py-4 text-sm font-medium transition-colors border-b-2 border-primary text-ink bg-surface-card"
+            data-tab="instagram"
           >
-            Instagram / TikTok
+            Instagram
           </button>
           <button 
-            id="tab-x"
-            class="flex-1 py-4 text-sm font-medium transition-colors border-b-2 border-transparent text-muted hover:text-ink"
+            class="flex-none px-6 py-4 text-sm font-medium transition-colors border-b-2 border-transparent text-muted hover:text-ink"
+            data-tab="tiktok"
+          >
+            TikTok
+          </button>
+          <button 
+            class="flex-none px-6 py-4 text-sm font-medium transition-colors border-b-2 border-transparent text-muted hover:text-ink"
+            data-tab="facebook"
+          >
+            Facebook
+          </button>
+          <button 
+            class="flex-none px-6 py-4 text-sm font-medium transition-colors border-b-2 border-transparent text-muted hover:text-ink"
+            data-tab="youtube"
+          >
+            YouTube
+          </button>
+          <button 
+            class="flex-none px-6 py-4 text-sm font-medium transition-colors border-b-2 border-transparent text-muted hover:text-ink"
             data-tab="x"
           >
             X (Twitter)
@@ -50,57 +73,133 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
           <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Inputs Area */}
             <div id="inputs-container" class="space-y-6">
-              {/* Instagram / TikTok Inputs */}
-              <div id="panel-ig-tt" class="space-y-6">
-                <div class="space-y-2">
-                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-likes">Likes</label>
-                  <input type="number" id="ig-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
-                </div>
-                <div class="space-y-2">
-                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-comments">Comments</label>
-                  <input type="number" id="ig-comments" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+              {/* Instagram Inputs */}
+              <div id="panel-instagram" class="space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="ig-likes">Likes</label>
+                    <input type="number" id="ig-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="ig-comments">Comments</label>
+                    <input type="number" id="ig-comments" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-2">
-                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-shares">Shares</label>
-                    <input type="number" id="ig-shares" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="ig-shares">Shares</label>
+                    <input type="number" id="ig-shares" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
                   </div>
                   <div class="space-y-2">
-                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-saves">Saves</label>
-                    <input type="number" id="ig-saves" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="ig-saves">Saves</label>
+                    <input type="number" id="ig-saves" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
                   </div>
                 </div>
                 <div class="pt-4 border-t border-hairline-soft">
                   <div class="space-y-2">
-                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-reach">Total Reach (or Followers)</label>
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="ig-reach">Total Reach / Followers</label>
                     <input type="number" id="ig-reach" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
                   </div>
                 </div>
               </div>
 
-              {/* X / Twitter Inputs (Hidden by default) */}
-              <div id="panel-x" class="space-y-6 hidden">
-                <div class="space-y-2">
-                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-likes">Likes</label>
-                  <input type="number" id="x-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+              {/* TikTok Inputs */}
+              <div id="panel-tiktok" class="space-y-6 hidden">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="tt-likes">Likes</label>
+                    <input type="number" id="tt-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="tt-comments">Comments</label>
+                    <input type="number" id="tt-comments" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
                 </div>
                 <div class="space-y-2">
-                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-retweets">Retweets / Reposts</label>
-                  <input type="number" id="x-retweets" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="tt-shares">Shares</label>
+                  <input type="number" id="tt-shares" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="pt-4 border-t border-hairline-soft">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="tt-views">Total Views / Followers</label>
+                    <input type="number" id="tt-views" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Facebook Inputs */}
+              <div id="panel-facebook" class="space-y-6 hidden">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="fb-reactions">Reactions</label>
+                    <input type="number" id="fb-reactions" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="fb-comments">Comments</label>
+                    <input type="number" id="fb-comments" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="fb-shares">Shares</label>
+                  <input type="number" id="fb-shares" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="pt-4 border-t border-hairline-soft">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="fb-reach">Total Reach / Followers</label>
+                    <input type="number" id="fb-reach" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+              </div>
+
+              {/* YouTube Inputs */}
+              <div id="panel-youtube" class="space-y-6 hidden">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="yt-likes">Likes</label>
+                    <input type="number" id="yt-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="yt-comments">Comments</label>
+                    <input type="number" id="yt-comments" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="yt-shares">Shares</label>
+                  <input type="number" id="yt-shares" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="pt-4 border-t border-hairline-soft">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="yt-views">Total Views / Subscribers</label>
+                    <input type="number" id="yt-views" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+              </div>
+
+              {/* X / Twitter Inputs */}
+              <div id="panel-x" class="space-y-6 hidden">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="x-likes">Likes</label>
+                    <input type="number" id="x-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="x-retweets">Reposts</label>
+                    <input type="number" id="x-retweets" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-2">
-                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-replies">Replies</label>
-                    <input type="number" id="x-replies" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="x-replies">Replies</label>
+                    <input type="number" id="x-replies" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
                   </div>
                   <div class="space-y-2">
-                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-quotes">Quotes</label>
-                    <input type="number" id="x-quotes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="x-quotes">Quotes</label>
+                    <input type="number" id="x-quotes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-2.5 text-ink focus:outline-none focus:border-primary transition-colors" />
                   </div>
                 </div>
                 <div class="pt-4 border-t border-hairline-soft">
                   <div class="space-y-2">
-                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-impressions">Total Impressions</label>
+                    <label class="text-xs font-semibold text-ink uppercase tracking-wider" for="x-impressions">Total Impressions</label>
                     <input type="number" id="x-impressions" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
                   </div>
                 </div>
@@ -131,41 +230,96 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
       </div>
     </section>
 
-    {/* Content Section */}
+    {/* SEO Content Section */}
     <section class="max-w-4xl mx-auto px-6 py-20 border-t border-hairline">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-          <h3 class="text-display-sm text-ink mb-4">Why track engagement?</h3>
-          <p class="text-body mb-6">
-            Follower count is a vanity metric. Engagement rate reveals how many people actually care about your content enough to take action. It's the primary metric brands use to calculate ROI on influencer campaigns.
-          </p>
-          <ul class="space-y-3 text-sm">
-            <li class="flex items-start gap-2">
-              <span class="text-primary mt-1">●</span>
-              <span><strong class="text-ink">1% - 3%</strong> is considered average/good.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-primary mt-1">●</span>
-              <span><strong class="text-ink">3% - 6%</strong> is high engagement.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-primary mt-1">●</span>
-              <span><strong class="text-ink">6%+</strong> is very high/viral level.</span>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-display-sm text-ink mb-4">Platform Specifics</h3>
-          <p class="text-body mb-6">
-            Different platforms weigh actions differently. For Instagram, <strong>Saves</strong> are increasingly vital for algorithm reach. For X, <strong>Reposts</strong> are the strongest signal of value.
-          </p>
+      <div class="prose prose-sm md:prose-base prose-ink max-w-none">
+        <h2 class="text-display-sm text-ink mb-6">Understanding the Engagement Rate Calculator</h2>
+        <p class="text-body mb-6">
+          In the modern digital landscape, follower counts are often considered "vanity metrics." They look good on a profile but don't necessarily reflect the actual impact of your content. This is where an <strong>Engagement Rate Calculator</strong> becomes an essential tool for creators, marketers, and brands. Whether you're looking for an <strong>instagram engagement rate calculator</strong>, a <strong>tiktok engagement rate calculator</strong>, or a <strong>facebook engagement rate calculator</strong>, understanding how your audience interacts with your posts is the key to sustainable growth.
+        </p>
+        <p class="text-body mb-6">
+          Our <strong>free engagement rate calculator</strong> is designed to provide a comprehensive look at your social media performance across multiple platforms. By analyzing likes, comments, shares, and saves against your total reach or followers, you can gain actionable insights into what truly resonates with your community.
+        </p>
+
+        <h3 class="text-title-md text-ink mb-4">Why Use a Social Media Engagement Rate Calculator?</h3>
+        <p class="text-body mb-6">
+          Engagement rate is the ultimate measure of content quality. A high engagement rate indicates that your audience is not just passively scrolling past your posts but is actively participating in the conversation. Brands and sponsors prioritize this metric because it directly correlates with trust and influence. If you have 100,000 followers but only 100 likes, your influence is likely lower than someone with 10,000 followers and 1,000 likes.
+        </p>
+        <p class="text-body mb-6">
+          Using a <strong>social media engagement rate calculator</strong> helps you benchmark performance, identify content trends, optimize posting times, and negotiate better deals with potential partners.
+        </p>
+
+        <h3 class="text-title-md text-ink mb-4">How to Calculate Engagement Rate</h3>
+        <p class="text-body mb-6">
+          The basic formula for engagement rate is typically <code>((Likes + Comments + Shares + Saves) / Total Followers or Reach) * 100</code>. However, different platforms may require different approaches. For example, a <strong>youtube engagement rate calculator</strong> might factor in watch time and subscriber growth alongside likes and comments. Similarly, a <strong>facebook engagement rate calculator</strong> would place high importance on shares, as they are a primary driver of virality on that platform.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
           <div class="bg-surface-card p-6 rounded-lg border border-hairline">
-            <h4 class="text-title-sm text-ink mb-2">Pro Tip</h4>
+            <h4 class="text-title-sm text-ink mb-2">Instagram & TikTok</h4>
             <p class="text-caption text-body">
-              Calculate based on <strong>Reach</strong> rather than Followers for a more accurate representation of how your content performed with the people who actually saw it.
+              As platforms shift towards "saves" and "shares" as primary ranking signals, our <strong>instagram engagement rate calculator</strong> and <strong>tiktok engagement rate calculator</strong> allow you to input these specific metrics for a more accurate calculation.
+            </p>
+          </div>
+          <div class="bg-surface-card p-6 rounded-lg border border-hairline">
+            <h4 class="text-title-sm text-ink mb-2">Facebook & YouTube</h4>
+            <p class="text-caption text-body">
+              Beyond simple likes, comments on YouTube often lead to deeper community building. A <strong>youtube engagement rate calculator</strong> can help you track the health of your channel over time, while Facebook users should focus on the power of shares.
             </p>
           </div>
         </div>
+
+        <h3 class="text-title-md text-ink mb-4">What is a "Good" Engagement Rate?</h3>
+        <p class="text-body mb-6">
+          While it varies by industry and platform size, generally:
+        </p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-2">
+            <span class="text-primary mt-1">●</span>
+            <span><strong class="text-ink">Less than 1%:</strong> Low engagement. It might be time to rethink your content strategy.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary mt-1">●</span>
+            <span><strong class="text-ink">1% to 3%:</strong> Average/Good engagement. This is standard for many established accounts.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary mt-1">●</span>
+            <span><strong class="text-ink">3% to 6%:</strong> High engagement. Your audience is very active and loyal.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary mt-1">●</span>
+            <span><strong class="text-ink">Above 6%:</strong> Very High engagement. This usually indicates viral content.</span>
+          </li>
+        </ul>
+
+        <h3 class="text-title-md text-ink mb-4">Tips to Boost Your Engagement</h3>
+        <p class="text-body mb-6">
+          If your results from the <strong>engagement rate calculator</strong> aren't where you want them to be, try asking more questions to encourage comments, posting more consistently, and engaging back with your community by replying to their feedback. High-quality visuals are also essential to stop the scroll.
+        </p>
+
+        <h3 class="text-title-md text-ink mb-4">Frequently Asked Questions</h3>
+        <div class="space-y-6 mb-8">
+          <div>
+            <h4 class="text-ink font-semibold mb-2">Is this a free engagement rate calculator?</h4>
+            <p class="text-body">Yes, our tool is 100% free to use. You can calculate metrics for as many accounts as you like without any hidden costs or registration requirements.</p>
+          </div>
+          <div>
+            <h4 class="text-ink font-semibold mb-2">Which platforms does this calculator support?</h4>
+            <p class="text-body">While we have dedicated tabs for Instagram, TikTok, and X (Twitter), you can use the general formulas to calculate rates for Facebook, YouTube, and LinkedIn by inputting the relevant interaction data.</p>
+          </div>
+          <div>
+            <h4 class="text-ink font-semibold mb-2">Should I calculate based on followers or reach?</h4>
+            <p class="text-body">Calculating based on <strong>reach</strong> is often more accurate for individual post performance, as it shows how many people who actually saw the post engaged with it. Calculating based on <strong>followers</strong> is better for understanding your overall account health and community loyalty.</p>
+          </div>
+          <div>
+            <h4 class="text-ink font-semibold mb-2">How often should I check my engagement rate?</h4>
+            <p class="text-body">We recommend checking your engagement rate weekly to spot trends and monthly to evaluate your overall content strategy. Significant changes in engagement can often signal a shift in platform algorithms or audience preferences.</p>
+          </div>
+        </div>
+
+        <p class="text-body">
+          Our <strong>free engagement rate calculator</strong> is here to help you navigate the complex world of social media metrics. Start calculating today and take the first step towards a more engaged and impactful online presence.
+        </p>
       </div>
     </section>
   </main>
@@ -174,29 +328,30 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
 
   <script is:inline>
     // Tab State
-    let activeTab = 'ig-tt';
+    let activeTab = 'instagram';
 
     // Elements
     const tabs = document.querySelectorAll('[data-tab]');
-    const panelIgTt = document.getElementById('panel-ig-tt');
-    const panelX = document.getElementById('panel-x');
+    const panels = {
+      instagram: document.getElementById('panel-instagram'),
+      tiktok: document.getElementById('panel-tiktok'),
+      facebook: document.getElementById('panel-facebook'),
+      youtube: document.getElementById('panel-youtube'),
+      x: document.getElementById('panel-x')
+    };
+    
     const resultValue = document.getElementById('result-value');
     const totalInteractionsDisplay = document.getElementById('total-interactions');
     const engagementLabel = document.getElementById('engagement-label');
 
-    // Inputs IG/TT
-    const igLikes = document.getElementById('ig-likes');
-    const igComments = document.getElementById('ig-comments');
-    const igShares = document.getElementById('ig-shares');
-    const igSaves = document.getElementById('ig-saves');
-    const igReach = document.getElementById('ig-reach');
-
-    // Inputs X
-    const xLikes = document.getElementById('x-likes');
-    const xRetweets = document.getElementById('x-retweets');
-    const xReplies = document.getElementById('x-replies');
-    const xQuotes = document.getElementById('x-quotes');
-    const xImpressions = document.getElementById('x-impressions');
+    // All Input IDs by platform
+    const platformInputs = {
+      instagram: ['ig-likes', 'ig-comments', 'ig-shares', 'ig-saves', 'ig-reach'],
+      tiktok: ['tt-likes', 'tt-comments', 'tt-shares', 'tt-views'],
+      facebook: ['fb-reactions', 'fb-comments', 'fb-shares', 'fb-reach'],
+      youtube: ['yt-likes', 'yt-comments', 'yt-shares', 'yt-views'],
+      x: ['x-likes', 'x-retweets', 'x-replies', 'x-quotes', 'x-impressions']
+    };
 
     // Tab Switching
     tabs.forEach(tab => {
@@ -213,13 +368,13 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
         tab.classList.remove('border-transparent', 'text-muted');
 
         // Toggle Panels
-        if (target === 'ig-tt') {
-          panelIgTt.classList.remove('hidden');
-          panelX.classList.add('hidden');
-        } else {
-          panelIgTt.classList.add('hidden');
-          panelX.classList.remove('hidden');
-        }
+        Object.keys(panels).forEach(key => {
+          if (key === target) {
+            panels[key].classList.remove('hidden');
+          } else {
+            panels[key].classList.add('hidden');
+          }
+        });
 
         calculate();
       });
@@ -231,20 +386,23 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
       let totalReach = 0;
       let er = 0;
 
-      if (activeTab === 'ig-tt') {
-        const likes = parseFloat(igLikes.value) || 0;
-        const comments = parseFloat(igComments.value) || 0;
-        const shares = parseFloat(igShares.value) || 0;
-        const saves = parseFloat(igSaves.value) || 0;
-        totalReach = parseFloat(igReach.value) || 0;
-        totalInteractions = likes + comments + shares + saves;
-      } else {
-        const likes = parseFloat(xLikes.value) || 0;
-        const retweets = parseFloat(xRetweets.value) || 0;
-        const replies = parseFloat(xReplies.value) || 0;
-        const quotes = parseFloat(xQuotes.value) || 0;
-        totalReach = parseFloat(xImpressions.value) || 0;
-        totalInteractions = likes + retweets + replies + quotes;
+      const getVal = (id) => parseFloat(document.getElementById(id).value) || 0;
+
+      if (activeTab === 'instagram') {
+        totalInteractions = getVal('ig-likes') + getVal('ig-comments') + getVal('ig-shares') + getVal('ig-saves');
+        totalReach = getVal('ig-reach');
+      } else if (activeTab === 'tiktok') {
+        totalInteractions = getVal('tt-likes') + getVal('tt-comments') + getVal('tt-shares');
+        totalReach = getVal('tt-views');
+      } else if (activeTab === 'facebook') {
+        totalInteractions = getVal('fb-reactions') + getVal('fb-comments') + getVal('fb-shares');
+        totalReach = getVal('fb-reach');
+      } else if (activeTab === 'youtube') {
+        totalInteractions = getVal('yt-likes') + getVal('yt-comments') + getVal('yt-shares');
+        totalReach = getVal('yt-views');
+      } else if (activeTab === 'x') {
+        totalInteractions = getVal('x-likes') + getVal('x-retweets') + getVal('x-replies') + getVal('x-quotes');
+        totalReach = getVal('x-impressions');
       }
 
       if (totalReach > 0) {
@@ -275,8 +433,8 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
     };
 
     // Listen to all inputs
-    [igLikes, igComments, igShares, igSaves, igReach, xLikes, xRetweets, xReplies, xQuotes, xImpressions].forEach(input => {
-      input.addEventListener('input', calculate);
+    Object.values(platformInputs).flat().forEach(id => {
+      document.getElementById(id).addEventListener('input', calculate);
     });
   </script>
 </Layout>
@@ -292,6 +450,17 @@ const description = "Calculate your true engagement rate across Instagram, TikTo
     line-height: 1.4;
     letter-spacing: 0.88px;
     text-transform: uppercase;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 
   /* Input styling - hiding arrows */

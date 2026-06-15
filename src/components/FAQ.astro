@@ -1,0 +1,104 @@
+---
+const faqs = [
+  {
+    question: "How do I calculate social media engagement rate?",
+    answer: "Engagement rate is typically calculated by dividing the total number of engagements (likes, comments, shares, saves) by your total follower count or reach, then multiplying by 100. Our Universal Engagement Calculator automates this for X, Instagram, and TikTok."
+  },
+  {
+    question: "What are Instagram Reels safe zones?",
+    answer: "Safe zones are areas where your text and key visual elements won't be covered by the Reels UI (like the profile picture, description, and music info) or cropped on different device aspect ratios. Use our Instagram Reels Overlay Tester to visualize these zones."
+  },
+  {
+    question: "How is ROAS calculated for marketing campaigns?",
+    answer: "Return on Ad Spend (ROAS) is calculated by dividing the total revenue generated from an ad campaign by the total cost of that campaign. Our ROAS & Profitability Engine helps you determine your break-even points and net profit margins."
+  },
+  {
+    question: "Can I use bold and italic text on LinkedIn?",
+    answer: "LinkedIn doesn't natively support bold or italic text in post descriptions. However, you can use our LinkedIn Preview Formatter to generate Unicode-based stylized text that works on the platform while ensuring your 'See More' cutoff is perfectly placed."
+  },
+  {
+    question: "Why is my text being cut off on Instagram Reels?",
+    answer: "Instagram places various UI elements over Reels. If your text is placed too high, too low, or too far to the right, it will likely be obscured. Testing your content with an overlay tool before posting is the best way to prevent this."
+  },
+  {
+    question: "What is a good engagement rate for creators?",
+    answer: "A 'good' engagement rate varies by platform and niche, but generally, 1-3% is average, while anything above 5% is considered high. Tracking your engagement helps you understand which 'hooks' resonate best with your audience."
+  },
+  {
+    question: "What is a target ROAS for Meta ads?",
+    answer: "While it depends on your profit margins, many e-commerce brands aim for a 3x to 4x ROAS. Our calculator helps you find your specific break-even ROAS so you know exactly when your ads are becoming profitable."
+  },
+  {
+    question: "Is using stylized text on LinkedIn bad for SEO?",
+    answer: "Stylized Unicode text isn't indexed the same way as standard text and might not be readable by screen readers. We recommend using it sparingly for emphasis rather than for your entire post to maintain accessibility and searchability."
+  },
+  {
+    question: "How does the 'See More' cutoff work on LinkedIn?",
+    answer: "LinkedIn typically truncates posts after about 140-200 characters on mobile. Our LinkedIn Preview Formatter allows you to see exactly where that line falls so you can place your most important 'hook' before the fold."
+  },
+  {
+    question: "Are these creator tools free to use?",
+    answer: "Yes! All tools on this platform—from the ROAS calculator to the Reels safe zone tester—are 100% free for individual creators and marketers. No sign-up is required."
+  },
+  {
+    question: "Do you store the data I enter into the calculators?",
+    answer: "No. We prioritize your privacy. All calculations happen locally in your browser, and we do not store or track any of the sensitive marketing or engagement data you input."
+  },
+  {
+    question: "How can I improve my content hooks?",
+    answer: "The best way to improve hooks is to analyze your engagement data. Use our Engagement Calculator to see which posts performed best, then use the LinkedIn Formatter or Reels Tester to ensure those hooks are visually prominent."
+  }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<section id="faq" class="max-w-4xl mx-auto px-6 py-20 sm:py-32">
+  <div class="mb-16">
+    <h2 class="text-display-lg text-ink mb-4">Frequently Asked Questions</h2>
+    <p class="text-body text-base sm:text-lg max-w-2xl">Everything you need to know about our tools and how to optimize your creator workflow for maximum reach and ROI.</p>
+  </div>
+
+  <div class="grid gap-4">
+    {faqs.map((faq) => (
+      <details class="group border border-hairline rounded-lg bg-surface-card overflow-hidden transition-all duration-300">
+        <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+          <h3 class="text-display-sm text-ink pr-8 font-normal">{faq.question}</h3>
+          <span class="transition-transform duration-300 group-open:rotate-180 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </summary>
+        <div class="px-6 pb-6 text-body text-sm sm:text-base leading-relaxed border-t border-hairline-soft pt-4">
+          {faq.answer}
+        </div>
+      </details>
+    ))}
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
+
+<style>
+  @reference "../styles/global.css";
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details[open] {
+    @apply border-hairline-strong shadow-sm;
+  }
+</style>

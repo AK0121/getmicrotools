@@ -1,0 +1,66 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "Choose your utility",
+    description: "Browse our curated library of professional-grade tools designed specifically for digital creators and marketers.",
+    icon: "🔍"
+  },
+  {
+    number: "02",
+    title: "Input your data",
+    description: "Enter your social metrics, ad spend, or upload your media. All processing happens locally in your browser for total privacy.",
+    icon: "⌨️"
+  },
+  {
+    number: "03",
+    title: "Get instant results",
+    description: "Receive high-fidelity insights, formatted text, or visual previews instantly. No sign-ups, no wait times, no friction.",
+    icon: "✨"
+  }
+];
+---
+
+<section id="how-it-works" class="py-20 sm:py-32 bg-canvas">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-20 text-center">
+      <h2 class="text-display-lg text-ink mb-4">How it works</h2>
+      <p class="text-body text-base sm:text-lg max-w-2xl mx-auto">
+        We've removed the complexity from your daily workflow. Three simple steps to professional-grade output.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16">
+      {steps.map((step) => (
+        <div class="flex flex-col gap-6 relative">
+          <div class="text-display-mega text-surface-strong/30 font-bold absolute -top-12 -left-4 select-none pointer-events-none">
+            {step.number}
+          </div>
+          <div class="w-14 h-14 rounded-md bg-surface-card border border-hairline flex items-center justify-center text-2xl shadow-sm relative z-10">
+            {step.icon}
+          </div>
+          <div class="relative z-10">
+            <h3 class="text-title-md text-ink mb-3">{step.title}</h3>
+            <p class="text-body text-sm leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-20 p-8 rounded-lg bg-surface-card border border-hairline flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="max-w-xl">
+        <h4 class="text-display-sm text-ink mb-2">Ready to speed up your workflow?</h4>
+        <p class="text-body text-sm">Join thousands of creators who use Micro Tools every day to save time and hit their targets.</p>
+      </div>
+      <a href="#tools" class="bg-primary hover:bg-primary-active text-white px-8 py-3 rounded-md text-sm font-medium transition-all shadow-sm whitespace-nowrap">
+        Start Exploring
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  @reference "../styles/global.css";
+</style>

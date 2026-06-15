@@ -9,6 +9,7 @@ const tools = [
 ];
 
 const navLinks = [
+  { href: "/about", label: "About Us" },
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/contact", label: "Contact Us" },
 ];
@@ -22,7 +23,7 @@ const navLinks = [
     <div class="hidden md:flex items-center gap-6">
       <!-- Tools Dropdown -->
       <div class="relative group">
-        <button class="flex items-center gap-1 text-body group-hover:text-ink text-sm font-medium transition-colors py-2">
+        <button class="flex items-center gap-1 text-body group-hover:text-ink text-sm font-medium transition-colors py-2" title="Browse our tool collection">
           Tools
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -35,6 +36,7 @@ const navLinks = [
               <a 
                 href={tool.href} 
                 class="block px-4 py-2 text-sm text-body hover:text-ink hover:bg-surface-strong rounded-md transition-colors"
+                title={`Use the ${tool.title}`}
               >
                 {tool.title}
               </a>
@@ -44,7 +46,7 @@ const navLinks = [
       </div>
 
       {navLinks.map(link => (
-        <a href={link.href} class="text-body hover:text-ink text-sm font-medium transition-colors">
+        <a href={link.href} class="text-body hover:text-ink text-sm font-medium transition-colors" title={link.label}>
           {link.label}
         </a>
       ))}

@@ -3,26 +3,24 @@ const tools = [
   { name: "Engagement", icon: "📈", color: "bg-timeline-thinking/20", textColor: "text-timeline-thinking", href: "/engagement-rate-calculator" },
   { name: "Reels Tester", icon: "📱", color: "bg-timeline-read/20", textColor: "text-timeline-read", href: "/instagram-reels-overlay-tester" },
   { name: "ROAS Engine", icon: "💰", color: "bg-timeline-grep/20", textColor: "text-timeline-grep", href: "/roas-calculator" },
-  { name: "LI Formatter", icon: "✍️", color: "bg-timeline-edit/20", textColor: "text-timeline-edit", href: "/linkedin-preview-formatter" },
-  { name: "JSON Format", icon: "{}", color: "bg-timeline-done/20", textColor: "text-timeline-done", href: "#" },
-  { name: "SEO Audit", icon: "🔍", color: "bg-primary/10", textColor: "text-primary", href: "#" },
-  { name: "Image Opt", icon: "🖼️", color: "bg-timeline-grep/20", textColor: "text-timeline-grep", href: "#" },
-  { name: "PDF Kit", icon: "📄", color: "bg-surface-strong/50", textColor: "text-ink", href: "#" },
-  { name: "SVG Comp", icon: "⚡", color: "bg-timeline-thinking/20", textColor: "text-timeline-thinking", href: "#" },
-  { name: "Ad Mockup", icon: "🎨", color: "bg-timeline-read/20", textColor: "text-timeline-read", href: "#" },
-  { name: "UTM Gen", icon: "🔗", color: "bg-timeline-edit/20", textColor: "text-timeline-edit", href: "#" },
-  { name: "Color Mix", icon: "🌈", color: "bg-timeline-done/20", textColor: "text-timeline-done", href: "#" }
+  { name: "LI Formatter", icon: "✍️", color: "bg-timeline-edit/20", textColor: "text-timeline-edit", href: "/linkedin-preview-formatter" }
+];
+
+const testimonials = [
+  { text: "The Reels Tester is a lifesaver for my content workflow.", author: "Sarah J.", role: "Content Creator" },
+  { text: "Finally, a simple ROAS engine that just works. No fluff.", author: "Mark D.", role: "Marketer" },
+  { text: "Microtools is my daily driver for social posts.", author: "Elena R.", role: "SMM" }
 ];
 ---
 
 <section class="flex flex-col items-center text-center pt-20 pb-12 px-6">
   <div class="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-surface-strong/50 border border-hairline mb-8 animate-fade-in">
     <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-    <span class="text-ink text-[11px] font-semibold uppercase tracking-wider">New: JSON Formatter v2.0</span>
+    <span class="text-ink text-[11px] font-semibold uppercase tracking-wider">New: LI Formatter v1.2</span>
   </div>
   
   <h1 class="text-display-mega text-ink mb-6 max-w-4xl tracking-[-0.03em]">
-    Every tool you need, <br /> in one micro place.
+    Essential micro tools, <br /> in one place.
   </h1>
   
   <p class="text-body text-xl max-w-2xl mb-10 leading-relaxed font-normal">
@@ -33,13 +31,13 @@ const tools = [
     <a href="#tools" class="bg-ink text-canvas hover:bg-ink/90 px-8 py-3 rounded-md text-sm font-medium transition-all hover:translate-y-[-1px] active:translate-y-[0px] shadow-lg">
       Explore Tools
     </a>
-    <a href="#" class="text-ink hover:bg-surface-strong/30 px-6 py-3 rounded-md text-sm font-medium transition-all">
+    <a href="#how-it-works" class="text-ink hover:bg-surface-strong/30 px-6 py-3 rounded-md text-sm font-medium transition-all">
       How it works &rarr;
     </a>
   </div>
 
   <!-- Mockup Area -->
-  <div class="relative w-full max-w-5xl mx-auto group px-2 sm:px-0">
+  <div class="relative w-full max-w-5xl mx-auto group px-2 sm:px-0 pointer-events-none">
     <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-timeline-read/20 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
     <div class="relative bg-surface-card border border-hairline rounded-lg shadow-2xl overflow-hidden flex flex-col min-h-[400px] sm:min-h-[500px]">
       <!-- Browser Header -->
@@ -65,7 +63,7 @@ const tools = [
           <div class="flex justify-between items-end mb-8">
             <div class="text-left">
               <h3 class="text-display-sm text-ink mb-1">Tool Library</h3>
-              <p class="text-xs text-muted">12 specialized utilities available today</p>
+              <p class="text-xs text-muted">{tools.length} specialized utilities available today</p>
             </div>
             <div class="hidden sm:flex gap-2">
                <div class="w-8 h-8 rounded bg-surface-card border border-hairline flex items-center justify-center">
@@ -81,32 +79,48 @@ const tools = [
             </div>
           </div>
 
-          <!-- Bento Grid -->
-          <div class="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 gap-4 animate-stagger">
+          <!-- Bento Grid Tools -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 animate-stagger mb-12">
             {tools.map((tool, index) => (
-              <a 
-                href={tool.href}
-                class={`group/card relative bg-surface-card border border-hairline rounded-lg p-4 flex flex-col items-start gap-3 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:-translate-y-1 ${index >= 8 ? 'hidden sm:flex' : ''}`}
+              <div 
+                class="group/card relative bg-surface-card border border-hairline rounded-lg p-4 flex flex-col items-start gap-3 transition-all duration-300"
                 style={`animation-delay: ${index * 50}ms`}
               >
-                <div class={`w-10 h-10 rounded-lg ${tool.color} flex items-center justify-center text-xl group-hover/card:scale-110 transition-transform duration-300`}>
+                <div class={`w-10 h-10 rounded-lg ${tool.color} flex items-center justify-center text-xl`}>
                   {tool.icon}
                 </div>
                 <div class="text-left">
-                  <div class="text-xs font-semibold text-ink group-hover/card:text-primary transition-colors">{tool.name}</div>
+                  <div class="text-xs font-semibold text-ink">{tool.name}</div>
                   <div class="text-[9px] text-muted uppercase tracking-wider font-bold">Utility</div>
                 </div>
-                <div class="absolute top-2 right-2 opacity-0 group-hover/card:opacity-100 transition-opacity">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </div>
-              </a>
+              </div>
             ))}
-            <div class="hidden md:flex bg-surface-strong/20 border border-hairline border-dashed rounded-lg p-4 flex-col items-center justify-center gap-2">
-              <div class="text-xl opacity-50">✨</div>
-              <div class="text-[10px] font-medium text-muted">More coming...</div>
-            </div>
+          </div>
+
+          <!-- Reviews Section -->
+          <div class="text-left mb-6">
+            <h3 class="text-display-xs text-ink mb-1">Community Love</h3>
+            <p class="text-[10px] text-muted uppercase tracking-widest font-bold">What creators are saying</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {testimonials.map((t, i) => (
+              <div class="bg-surface-strong/20 border border-hairline rounded-lg p-4 flex flex-col gap-3" style={`animation-delay: ${(tools.length + i) * 50}ms`}>
+                <div class="flex gap-0.5 text-primary text-[10px]">
+                  {"★".repeat(5)}
+                </div>
+                <p class="text-xs text-ink italic leading-relaxed">"{t.text}"</p>
+                <div class="flex items-center gap-2 mt-auto">
+                  <div class="w-6 h-6 rounded-full bg-surface-card border border-hairline flex items-center justify-center text-[10px] font-bold text-muted">
+                    {t.author[0]}
+                  </div>
+                  <div>
+                    <div class="text-[10px] font-bold text-ink">{t.author}</div>
+                    <div class="text-[8px] text-muted uppercase">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -130,9 +144,10 @@ const tools = [
     animation: fade-in 0.8s ease-out forwards;
   }
 
-  .animate-stagger > a {
+  .animate-stagger > div {
     opacity: 0;
     animation: stagger-fade 0.5s ease-out forwards;
   }
 </style>
+
 
