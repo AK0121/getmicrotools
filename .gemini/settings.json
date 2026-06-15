@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "astro-docs": {
+      "url": "https://mcp.docs.astro.build/mcp"
+    },
+    "bustling-binary": {
+      "url": "http://localhost:4321/__mcp/sse"
+    }
+  }
+}

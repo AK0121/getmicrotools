@@ -1,0 +1,393 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const title = "LinkedIn Post Formatter & Preview | Get Micro Tools";
+const description = "Style your LinkedIn content with bold, italic, and script text while previewing exactly where the feed cuts off.";
+---
+
+<Layout title={title} description={description}>
+  <main class="min-h-screen bg-canvas selection:bg-primary/20 transition-colors duration-500">
+    <Nav />
+    
+    <header class="max-w-7xl mx-auto px-6 pt-16 pb-12">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-strong text-ink text-caption-uppercase mb-4">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          Formatting Tool
+        </div>
+        <h1 class="text-display-lg md:text-display-mega text-ink mb-6">
+          LinkedIn <span class="text-primary">Preview</span> & Formatter.
+        </h1>
+        <p class="text-body-md text-muted max-w-2xl">
+          Stand out in the feed with stylized text and ensure your most important hook isn't hidden behind the 'see more' cutoff.
+        </p>
+      </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <!-- Left: Workspace -->
+        <div class="space-y-6">
+          <div class="bg-surface-card border border-hairline rounded-lg overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-colors duration-500">
+            <!-- Toolbar -->
+            <div class="flex items-center gap-2 p-3 bg-canvas-soft border-b border-hairline transition-colors duration-500">
+              <button id="btn-bold" class="px-3 py-1.5 text-xs font-semibold bg-white dark:bg-ink text-ink dark:text-canvas border border-hairline rounded hover:border-muted transition-all active:scale-95" title="Toggle Bold">𝗕 Bold</button>
+              <button id="btn-italic" class="px-3 py-1.5 text-xs font-semibold bg-white dark:bg-ink text-ink dark:text-canvas border border-hairline rounded hover:border-muted transition-all active:scale-95" title="Toggle Italic">𝘐 Italic</button>
+              <div class="h-4 w-px bg-hairline mx-1"></div>
+              <button id="btn-clear" class="px-3 py-1.5 text-xs font-semibold text-muted hover:text-ink transition-all active:scale-95">Clear Text</button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="relative">
+              <textarea
+                id="post-input"
+                class="w-full h-80 p-6 bg-transparent text-ink font-sans text-base leading-relaxed resize-none outline-none placeholder:text-muted-soft transition-colors duration-500"
+                placeholder="Write your LinkedIn post here..."
+              ></textarea>
+              
+              <div class="absolute bottom-4 right-6 flex items-center gap-2 px-2 py-1 bg-canvas/50 backdrop-blur-sm rounded text-[11px] font-semibold text-muted uppercase tracking-wider border border-hairline transition-colors duration-500">
+                <span id="char-count">0</span> Characters
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button 
+            id="copy-btn"
+            class="w-full py-4 bg-primary hover:bg-primary-active text-white text-sm font-semibold rounded-md transition-all active:scale-[0.98] shadow-md shadow-primary/10 flex items-center justify-center gap-2 group"
+          >
+            <span id="copy-btn-text">Copy Formatted Text</span>
+            <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            <svg id="success-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="sticky top-24">
+          <div class="mb-4 flex items-center justify-between">
+            <div class="flex items-center gap-1 p-1 bg-surface-strong/50 rounded-lg border border-hairline">
+              <button id="view-desktop" class="px-3 py-1.5 text-[11px] uppercase tracking-wider font-bold rounded-md transition-all bg-white dark:bg-ink text-ink dark:text-canvas shadow-sm">Desktop</button>
+              <button id="view-mobile" class="px-3 py-1.5 text-[11px] uppercase tracking-wider font-bold rounded-md transition-all text-muted hover:text-ink">Mobile</button>
+            </div>
+            <div class="flex gap-1">
+              <div class="w-2.5 h-2.5 rounded-full bg-hairline-strong"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-hairline-strong"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-hairline-strong"></div>
+            </div>
+          </div>
+
+          <div id="preview-container" class="transition-all duration-300 w-full mx-auto">
+            <!-- LinkedIn Card Mockup -->
+            <div class="bg-white dark:bg-[#1d2226] border border-[#e0e0e0] dark:border-none rounded-lg overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.08)] transition-colors duration-500">
+              <!-- Card Header -->
+              <div class="p-3 pb-2 flex gap-2">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex-shrink-0 border border-black/5 flex items-center justify-center overflow-hidden">
+                  <svg viewBox="0 0 24 24" class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <div class="pt-0.5 flex-grow">
+                  <div class="flex items-center gap-1">
+                    <span class="text-sm font-semibold text-black dark:text-white hover:text-primary hover:underline cursor-pointer">Jane Designer</span>
+                    <span class="text-xs text-muted"> • 1st</span>
+                  </div>
+                  <p class="text-[12px] text-muted leading-tight line-clamp-1">Creative Director at Visionary Studio | Digital Strategy & UX</p>
+                  <div class="flex items-center gap-1 mt-0.5 text-[12px] text-muted">
+                    <span>1h • </span>
+                    <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="opacity-70"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 12a5 5 0 110-10 5 5 0 010 10zm.5-7.5h-1v3l2.5 1.5.5-.8-2-1.2v-2.5z"/></svg>
+                  </div>
+                </div>
+                <button class="p-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors self-start text-muted">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </button>
+              </div>
+
+              <!-- Post Content -->
+              <div class="px-4 pb-4">
+                <div id="preview-text" class="text-sm leading-[1.428] text-[#191919] dark:text-[#e1e1e1] whitespace-pre-wrap break-words min-h-[1.428em] transition-colors duration-500 font-sans">
+                  <span class="text-muted-soft italic">Your preview will appear here...</span>
+                </div>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="px-3 border-t border-gray-100 dark:border-[#2f3337] transition-colors duration-500">
+                <div class="flex items-center justify-around py-1">
+                  <button class="flex items-center gap-1.5 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-muted hover:text-ink font-semibold text-sm transition-colors">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.46 11l-3.91-3.91a7 7 0 01-1.69-2.74l-.49-1.47a2.76 2.76 0 00-5.27 0l-.49 1.47a7 7 0 01-1.69 2.74L2.01 11a2.76 2.76 0 000 3.91l.89.89a2.8 2.8 0 003.92 0L8.5 14.12v5.12a2.76 2.76 0 002.76 2.76h1.47a2.76 2.76 0 002.76-2.76v-5.12l1.68 1.68a2.8 2.8 0 003.92 0l.89-.89a2.76 2.76 0 00-.52-3.91z"/></svg>
+                    Like
+                  </button>
+                  <button class="flex items-center gap-1.5 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-muted hover:text-ink font-semibold text-sm transition-colors">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a10 10 0 00-10 10c0 2.25.75 4.33 2 6l-1 4 4-1a10 10 0 105-19z"/></svg>
+                    Comment
+                  </button>
+                  <button class="flex items-center gap-1.5 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-muted hover:text-ink font-semibold text-sm transition-colors">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17 11V7l5 5-5 5v-4H7a4 4 0 00-4 4v1h-2v-1a6 6 0 016-6h8z"/></svg>
+                    Repost
+                  </button>
+                  <button class="flex items-center gap-1.5 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-muted hover:text-ink font-semibold text-sm transition-colors">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg>
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-6 bg-canvas-soft border border-hairline rounded-lg transition-colors duration-500">
+            <h4 class="text-title-sm text-ink mb-2">The "See More" Cutoff</h4>
+            <p class="text-body-sm leading-relaxed text-muted">
+              LinkedIn truncates posts differently by device. On <strong class="text-ink">Mobile</strong>, the cutoff is usually <strong class="text-ink">~140 characters</strong>. On <strong class="text-ink">Desktop</strong>, it's approximately <strong class="text-ink">~210 characters</strong>. Keep your hook short for maximum impact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+
+  <script>
+    // Unicode Transformation Maps
+    const MAPS: Record<string, Record<string, string>> = {
+      bold: {
+        'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵', 'i': '𝗶', 'j': '𝗷', 'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿', 's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇',
+        'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛', 'I': '𝗜', 'J': '𝗝', 'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥', 'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭',
+        '0': '𝟬', '1': '𝟭', '2': '𝟮', '3': '𝟯', '4': '𝟰', '5': '𝟱', '6': '𝟲', '7': '𝟳', '8': '𝟴', '9': '𝟵'
+      },
+      italic: {
+        'a': '𝘢', 'b': '𝘣', 'c': '𝘤', 'd': '𝘥', 'e': '𝘦', 'f': '𝘧', 'g': '𝘨', 'h': '𝘩', 'i': '𝘪', 'j': '𝘫', 'k': '𝘬', 'l': '𝘭', 'm': '𝘮', 'n': '𝘯', 'o': '𝘰', 'p': '𝘱', 'q': '𝘲', 'r': '𝘳', 's': '𝘴', 't': '𝘵', 'u': '𝘶', 'v': '𝘷', 'w': '𝘸', 'x': '𝘹', 'y': '𝘺', 'z': '𝘻',
+        'A': '𝘈', 'B': '𝘉', 'C': '𝘊', 'D': '𝘋', 'E': '𝘌', 'F': '𝘍', 'G': '𝘎', 'H': '𝘏', 'I': '𝘐', 'J': '𝘑', 'K': '𝘒', 'L': '𝘓', 'M': '𝘔', 'N': '𝘕', 'O': '𝘖', 'P': '𝘗', 'Q': '𝘘', 'R': '𝘙', 'S': '𝘚', 'T': '𝘛', 'U': '𝘜', 'V': '𝘝', 'W': '𝘞', 'X': '𝘟', 'Y': '𝘠', 'Z': '𝘡'
+      },
+      bolditalic: {
+        'a': '𝙖', 'b': '𝙗', 'c': '𝙘', 'd': '𝙙', 'e': '𝙚', 'f': '𝙛', 'g': '𝙜', 'h': '𝙝', 'i': '𝙞', 'j': '𝙟', 'k': '𝙠', 'l': '𝙡', 'm': '𝙢', 'n': '𝙣', 'o': '𝙤', 'p': '𝙥', 'q': '𝙦', 'r': '𝙧', 's': '𝙨', 't': '𝙩', 'u': '𝙪', 'v': '𝙫', 'w': '𝙬', 'x': '𝙭', 'y': '𝙮', 'z': '𝙯',
+        'A': '𝘼', 'B': '𝘽', 'C': '𝘾', 'D': '𝘿', 'E': '𝙀', 'F': '𝙁', 'G': '𝙂', 'H': '𝙃', 'I': '𝙄', 'J': '𝙅', 'K': '𝙆', 'L': '𝙇', 'M': '𝙈', 'N': '𝙉', 'O': '𝙊', 'P': '𝙋', 'Q': '𝙌', 'R': '𝙍', 'S': '𝙎', 'T': '𝙏', 'U': '𝙐', 'V': '𝙑', 'W': '𝙒', 'X': '𝙓', 'Y': '𝙔', 'Z': '𝙕'
+      }
+    };
+
+    // Reverse map: styled unicode char → plain char
+    const REVERSE_MAP: Record<string, string> = {};
+    for (const style in MAPS) {
+      for (const [plain, styled] of Object.entries(MAPS[style])) {
+        REVERSE_MAP[styled] = plain;
+      }
+    }
+
+    // Track active styles (for new typing)
+    const activeStyles = { bold: false, italic: false };
+    let currentView: 'desktop' | 'mobile' = 'desktop';
+    const LIMITS = { desktop: 210, mobile: 140 };
+
+    const textarea = document.getElementById('post-input') as HTMLTextAreaElement;
+    const preview = document.getElementById('preview-text') as HTMLDivElement;
+    const charCount = document.getElementById('char-count') as HTMLSpanElement;
+    const copyBtn = document.getElementById('copy-btn');
+    const copyBtnText = document.getElementById('copy-btn-text');
+    const copyIcon = document.getElementById('copy-icon');
+    const successIcon = document.getElementById('success-icon');
+    const boldBtn = document.getElementById('btn-bold') as HTMLButtonElement;
+    const italicBtn = document.getElementById('btn-italic') as HTMLButtonElement;
+    const clearBtn = document.getElementById('btn-clear');
+    
+    const btnDesktop = document.getElementById('view-desktop') as HTMLButtonElement;
+    const btnMobile = document.getElementById('view-mobile') as HTMLButtonElement;
+    const previewContainer = document.getElementById('preview-container') as HTMLDivElement;
+
+    function setView(view: 'desktop' | 'mobile') {
+      currentView = view;
+      
+      // Update buttons
+      const activeClasses = ['bg-white', 'dark:bg-ink', 'text-ink', 'dark:text-canvas', 'shadow-sm'];
+      const inactiveClasses = ['text-muted', 'hover:text-ink'];
+      
+      if (view === 'desktop') {
+        btnDesktop.classList.add(...activeClasses);
+        btnDesktop.classList.remove(...inactiveClasses);
+        btnMobile.classList.remove(...activeClasses);
+        btnMobile.classList.add(...inactiveClasses);
+        previewContainer.classList.remove('max-w-[375px]');
+        previewContainer.classList.add('w-full');
+      } else {
+        btnMobile.classList.add(...activeClasses);
+        btnMobile.classList.remove(...inactiveClasses);
+        btnDesktop.classList.remove(...activeClasses);
+        btnDesktop.classList.add(...inactiveClasses);
+        previewContainer.classList.remove('w-full');
+        previewContainer.classList.add('max-w-[375px]');
+      }
+      
+      updateUI();
+    }
+
+    function normalize(text: string): string {
+      return [...text].map(c => REVERSE_MAP[c] ?? c).join('');
+    }
+
+    function getCharStyles(c: string) {
+      const base = REVERSE_MAP[c] ?? c;
+      const isBold = (MAPS.bold[base] === c) || (MAPS.bolditalic[base] === c);
+      const isItalic = (MAPS.italic[base] === c) || (MAPS.bolditalic[base] === c);
+      return { base, isBold, isItalic };
+    }
+
+    function transformChar(c: string, wantBold: boolean, wantItalic: boolean): string {
+      const base = REVERSE_MAP[c] ?? c;
+      if (wantBold && wantItalic && MAPS.bolditalic[base]) return MAPS.bolditalic[base];
+      if (wantBold && MAPS.bold[base]) return MAPS.bold[base];
+      if (wantItalic && MAPS.italic[base]) return MAPS.italic[base];
+      return base;
+    }
+
+    function applyActiveStylesToText(text: string): string {
+      return [...text].map(c => transformChar(c, activeStyles.bold, activeStyles.italic)).join('');
+    }
+
+    function toggleStyle(style: 'bold' | 'italic') {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selection = textarea.value.substring(start, end);
+
+      if (selection) {
+        // Apply to selection
+        const chars = [...selection].map(getCharStyles);
+        // If all chars in selection already have this style, we remove it. Otherwise we add it.
+        const allHaveStyle = chars.every(c => (style === 'bold' ? c.isBold : c.isItalic));
+        
+        const transformed = chars.map(c => {
+          const newBold = style === 'bold' ? !allHaveStyle : c.isBold;
+          const newItalic = style === 'italic' ? !allHaveStyle : c.isItalic;
+          return transformChar(c.base, newBold, newItalic);
+        }).join('');
+
+        textarea.setRangeText(transformed, start, end, 'select');
+        // If we toggled something on, update activeStyles for future typing
+        if (!allHaveStyle) {
+          activeStyles[style] = true;
+        } else {
+          // If we removed it, only turn off activeStyle if there's no selection left or something?
+          // Actually, standard behavior is to leave the button state as is unless changed.
+        }
+      } else {
+        // No selection, toggle for the WHOLE textarea AND future typing
+        activeStyles[style] = !activeStyles[style];
+        
+        const chars = [...textarea.value].map(getCharStyles);
+        const transformed = chars.map(c => {
+          const newBold = style === 'bold' ? activeStyles.bold : c.isBold;
+          const newItalic = style === 'italic' ? activeStyles.italic : c.isItalic;
+          return transformChar(c.base, newBold, newItalic);
+        }).join('');
+        
+        const scrollPos = textarea.scrollTop;
+        textarea.value = transformed;
+        textarea.scrollTop = scrollPos;
+        textarea.setSelectionRange(start, end);
+      }
+
+      updateButtonStates();
+      updateUI();
+      textarea.focus();
+    }
+
+    function updateButtonStates() {
+      boldBtn.classList.toggle('ring-2', activeStyles.bold);
+      boldBtn.classList.toggle('ring-primary', activeStyles.bold);
+      italicBtn.classList.toggle('ring-2', activeStyles.italic);
+      italicBtn.classList.toggle('ring-primary', activeStyles.italic);
+    }
+
+    function escapeHtml(text: string): string {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function updateUI() {
+      const text = textarea.value;
+      charCount.textContent = [...text].length.toString();
+
+      if (text.length === 0) {
+        preview.innerHTML = '<span class="text-muted-soft italic">Your preview will appear here...</span>';
+        return;
+      }
+
+      const limit = LIMITS[currentView];
+
+      if ([...text].length > limit) {
+        const visible = [...text].slice(0, limit).join('');
+        preview.innerHTML = `${escapeHtml(visible)}<span class="text-[#666666] dark:text-muted font-semibold cursor-default hover:underline">...see more</span>`;
+      } else {
+        preview.textContent = text;
+      }
+    }
+
+    // Event Listeners
+    textarea.addEventListener('input', (e: any) => {
+      // If text was inserted, apply active styles to it
+      if (e.inputType === 'insertText' && e.data && (activeStyles.bold || activeStyles.italic)) {
+        const styled = applyActiveStylesToText(e.data);
+        if (styled !== e.data) {
+          const pos = textarea.selectionStart;
+          const len = [...e.data].length;
+          
+          // Re-insertion logic
+          const before = textarea.value.substring(0, pos - e.data.length);
+          const after = textarea.value.substring(pos);
+          textarea.value = before + styled + after;
+          const newPos = before.length + styled.length;
+          textarea.setSelectionRange(newPos, newPos);
+        }
+      }
+      updateUI();
+    });
+
+    boldBtn.addEventListener('click', () => toggleStyle('bold'));
+    italicBtn.addEventListener('click', () => toggleStyle('italic'));
+    
+    btnDesktop.addEventListener('click', () => setView('desktop'));
+    btnMobile.addEventListener('click', () => setView('mobile'));
+
+    clearBtn?.addEventListener('click', () => {
+      textarea.value = '';
+      activeStyles.bold = false;
+      activeStyles.italic = false;
+      updateButtonStates();
+      updateUI();
+      textarea.focus();
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      if (!textarea.value) return;
+      try {
+        await navigator.clipboard.writeText(textarea.value);
+        const originalText = copyBtnText?.textContent;
+        if (copyBtnText) copyBtnText.textContent = 'Copied!';
+        copyIcon?.classList.add('hidden');
+        successIcon?.classList.remove('hidden');
+        copyBtn?.classList.replace('bg-primary', 'bg-primary-active');
+        setTimeout(() => {
+          if (copyBtnText) copyBtnText.textContent = originalText || '';
+          copyIcon?.classList.remove('hidden');
+          successIcon?.classList.add('hidden');
+          copyBtn?.classList.replace('bg-primary-active', 'bg-primary');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    });
+
+    updateUI();
+  </script>
+
+</Layout>
+
+<style>
+  /* LinkedIn feed font approximation */
+  #preview-text {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+</style>

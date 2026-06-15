@@ -1,0 +1,306 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+// Page Metadata
+const title = "Engagement Rate Calculator | Get Micro Tools";
+const description = "Calculate your true engagement rate across Instagram, TikTok, and X with professional-grade accuracy.";
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+
+  <main class="min-h-screen bg-canvas">
+    {/* Hero Header */}
+    <header class="max-w-7xl mx-auto px-6 pt-24 pb-16 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-surface-strong text-ink text-[11px] font-semibold uppercase tracking-wider mb-6">
+        Creator Tools
+      </div>
+      <h1 class="text-display-lg md:text-display-mega text-ink mb-6">
+        Engagement Rate Calculator
+      </h1>
+      <p class="text-body text-lg max-w-2xl mx-auto">
+        Move beyond vanity metrics. Calculate your true impact across platforms using industry-standard formulas for organic and paid reach.
+      </p>
+    </header>
+
+    {/* Calculator Section */}
+    <section class="max-w-4xl mx-auto px-6 pb-24">
+      <div class="bg-surface-card rounded-lg border border-hairline overflow-hidden shadow-sm">
+        {/* Tabs */}
+        <div class="flex border-b border-hairline bg-canvas-soft">
+          <button 
+            id="tab-ig-tt"
+            class="flex-1 py-4 text-sm font-medium transition-colors border-b-2 border-primary text-ink bg-surface-card"
+            data-tab="ig-tt"
+          >
+            Instagram / TikTok
+          </button>
+          <button 
+            id="tab-x"
+            class="flex-1 py-4 text-sm font-medium transition-colors border-b-2 border-transparent text-muted hover:text-ink"
+            data-tab="x"
+          >
+            X (Twitter)
+          </button>
+        </div>
+
+        <div class="p-8 md:p-12">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Inputs Area */}
+            <div id="inputs-container" class="space-y-6">
+              {/* Instagram / TikTok Inputs */}
+              <div id="panel-ig-tt" class="space-y-6">
+                <div class="space-y-2">
+                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-likes">Likes</label>
+                  <input type="number" id="ig-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-comments">Comments</label>
+                  <input type="number" id="ig-comments" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-shares">Shares</label>
+                    <input type="number" id="ig-shares" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-saves">Saves</label>
+                    <input type="number" id="ig-saves" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+                <div class="pt-4 border-t border-hairline-soft">
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="ig-reach">Total Reach (or Followers)</label>
+                    <input type="number" id="ig-reach" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+              </div>
+
+              {/* X / Twitter Inputs (Hidden by default) */}
+              <div id="panel-x" class="space-y-6 hidden">
+                <div class="space-y-2">
+                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-likes">Likes</label>
+                  <input type="number" id="x-likes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-retweets">Retweets / Reposts</label>
+                  <input type="number" id="x-retweets" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-replies">Replies</label>
+                    <input type="number" id="x-replies" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-quotes">Quotes</label>
+                    <input type="number" id="x-quotes" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-md px-4 py-3 text-ink focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+                <div class="pt-4 border-t border-hairline-soft">
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-ink uppercase tracking-wider" for="x-impressions">Total Impressions</label>
+                    <input type="number" id="x-impressions" placeholder="0" class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-ink font-medium focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Results Area */}
+            <div class="flex flex-col justify-center items-center p-8 bg-canvas-soft rounded-lg border border-hairline-soft">
+              <span class="text-caption-uppercase text-muted mb-4">Engagement Rate</span>
+              <div class="flex items-baseline gap-1">
+                <span id="result-value" class="text-display-mega text-ink">0.00</span>
+                <span class="text-display-md text-muted">%</span>
+              </div>
+              <div id="engagement-label" class="mt-6 px-4 py-1.5 rounded-pill bg-timeline-grep/20 text-timeline-done font-semibold text-xs uppercase tracking-widest border border-timeline-done/20">
+                Awaiting Data
+              </div>
+              
+              <div class="mt-12 w-full space-y-4">
+                <div class="flex justify-between text-sm">
+                  <span class="text-muted">Total Interactions</span>
+                  <span id="total-interactions" class="text-ink font-medium">0</span>
+                </div>
+                <div class="w-full h-px bg-hairline"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Content Section */}
+    <section class="max-w-4xl mx-auto px-6 py-20 border-t border-hairline">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-display-sm text-ink mb-4">Why track engagement?</h3>
+          <p class="text-body mb-6">
+            Follower count is a vanity metric. Engagement rate reveals how many people actually care about your content enough to take action. It's the primary metric brands use to calculate ROI on influencer campaigns.
+          </p>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-primary mt-1">●</span>
+              <span><strong class="text-ink">1% - 3%</strong> is considered average/good.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-primary mt-1">●</span>
+              <span><strong class="text-ink">3% - 6%</strong> is high engagement.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-primary mt-1">●</span>
+              <span><strong class="text-ink">6%+</strong> is very high/viral level.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-display-sm text-ink mb-4">Platform Specifics</h3>
+          <p class="text-body mb-6">
+            Different platforms weigh actions differently. For Instagram, <strong>Saves</strong> are increasingly vital for algorithm reach. For X, <strong>Reposts</strong> are the strongest signal of value.
+          </p>
+          <div class="bg-surface-card p-6 rounded-lg border border-hairline">
+            <h4 class="text-title-sm text-ink mb-2">Pro Tip</h4>
+            <p class="text-caption text-body">
+              Calculate based on <strong>Reach</strong> rather than Followers for a more accurate representation of how your content performed with the people who actually saw it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+    // Tab State
+    let activeTab = 'ig-tt';
+
+    // Elements
+    const tabs = document.querySelectorAll('[data-tab]');
+    const panelIgTt = document.getElementById('panel-ig-tt');
+    const panelX = document.getElementById('panel-x');
+    const resultValue = document.getElementById('result-value');
+    const totalInteractionsDisplay = document.getElementById('total-interactions');
+    const engagementLabel = document.getElementById('engagement-label');
+
+    // Inputs IG/TT
+    const igLikes = document.getElementById('ig-likes');
+    const igComments = document.getElementById('ig-comments');
+    const igShares = document.getElementById('ig-shares');
+    const igSaves = document.getElementById('ig-saves');
+    const igReach = document.getElementById('ig-reach');
+
+    // Inputs X
+    const xLikes = document.getElementById('x-likes');
+    const xRetweets = document.getElementById('x-retweets');
+    const xReplies = document.getElementById('x-replies');
+    const xQuotes = document.getElementById('x-quotes');
+    const xImpressions = document.getElementById('x-impressions');
+
+    // Tab Switching
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
+        activeTab = target;
+
+        // Update Tab UI
+        tabs.forEach(t => {
+          t.classList.remove('border-primary', 'text-ink', 'bg-surface-card');
+          t.classList.add('border-transparent', 'text-muted');
+        });
+        tab.classList.add('border-primary', 'text-ink', 'bg-surface-card');
+        tab.classList.remove('border-transparent', 'text-muted');
+
+        // Toggle Panels
+        if (target === 'ig-tt') {
+          panelIgTt.classList.remove('hidden');
+          panelX.classList.add('hidden');
+        } else {
+          panelIgTt.classList.add('hidden');
+          panelX.classList.remove('hidden');
+        }
+
+        calculate();
+      });
+    });
+
+    // Real-time Calculation
+    const calculate = () => {
+      let totalInteractions = 0;
+      let totalReach = 0;
+      let er = 0;
+
+      if (activeTab === 'ig-tt') {
+        const likes = parseFloat(igLikes.value) || 0;
+        const comments = parseFloat(igComments.value) || 0;
+        const shares = parseFloat(igShares.value) || 0;
+        const saves = parseFloat(igSaves.value) || 0;
+        totalReach = parseFloat(igReach.value) || 0;
+        totalInteractions = likes + comments + shares + saves;
+      } else {
+        const likes = parseFloat(xLikes.value) || 0;
+        const retweets = parseFloat(xRetweets.value) || 0;
+        const replies = parseFloat(xReplies.value) || 0;
+        const quotes = parseFloat(xQuotes.value) || 0;
+        totalReach = parseFloat(xImpressions.value) || 0;
+        totalInteractions = likes + retweets + replies + quotes;
+      }
+
+      if (totalReach > 0) {
+        er = (totalInteractions / totalReach) * 100;
+      }
+
+      // Update UI
+      resultValue.innerText = er.toFixed(2);
+      totalInteractionsDisplay.innerText = totalInteractions.toLocaleString();
+
+      // Update Label
+      if (totalReach === 0) {
+        engagementLabel.innerText = "Awaiting Data";
+        engagementLabel.className = "mt-6 px-4 py-1.5 rounded-pill bg-surface-strong text-muted font-semibold text-xs uppercase tracking-widest border border-hairline";
+      } else if (er < 1) {
+        engagementLabel.innerText = "Low";
+        engagementLabel.className = "mt-6 px-4 py-1.5 rounded-pill bg-red-100 text-red-600 font-semibold text-xs uppercase tracking-widest border border-red-200";
+      } else if (er < 3) {
+        engagementLabel.innerText = "Average";
+        engagementLabel.className = "mt-6 px-4 py-1.5 rounded-pill bg-blue-100 text-blue-600 font-semibold text-xs uppercase tracking-widest border border-blue-200";
+      } else if (er < 6) {
+        engagementLabel.innerText = "Good";
+        engagementLabel.className = "mt-6 px-4 py-1.5 rounded-pill bg-green-100 text-green-600 font-semibold text-xs uppercase tracking-widest border border-green-200";
+      } else {
+        engagementLabel.innerText = "Very High";
+        engagementLabel.className = "mt-6 px-4 py-1.5 rounded-pill bg-timeline-done/10 text-timeline-done font-semibold text-xs uppercase tracking-widest border border-timeline-done/20";
+      }
+    };
+
+    // Listen to all inputs
+    [igLikes, igComments, igShares, igSaves, igReach, xLikes, xRetweets, xReplies, xQuotes, xImpressions].forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+  </script>
+</Layout>
+
+<style>
+  /* Inter font substitution for CursorGothic */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+  /* Custom typography classes to match DESIGN.md exactly */
+  .text-caption-uppercase {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.88px;
+    text-transform: uppercase;
+  }
+
+  /* Input styling - hiding arrows */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+</style>

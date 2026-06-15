@@ -1,0 +1,178 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+
+const tools = [
+  { title: "Engagement Calculator", href: "/engagement-rate-calculator" },
+  { title: "Instagram Reels Tester", href: "/instagram-reels-overlay-tester" },
+  { title: "ROAS & Profitability", href: "/roas-calculator" },
+  { title: "LinkedIn Preview Formatter", href: "/linkedin-preview-formatter" },
+];
+
+const navLinks = [
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/contact", label: "Contact Us" },
+];
+---
+
+<nav class="sticky top-0 z-50 flex items-center justify-between h-16 px-6 md:px-12 bg-canvas/80 backdrop-blur-md border-b border-hairline-soft transition-colors duration-500">
+  <div class="flex items-center gap-8">
+    <a href="/" class="text-ink font-semibold text-lg tracking-tight">
+      Get <span class="text-primary">Micro</span> Tools
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <!-- Tools Dropdown -->
+      <div class="relative group">
+        <button class="flex items-center gap-1 text-body group-hover:text-ink text-sm font-medium transition-colors py-2">
+          Tools
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        
+        <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <div class="bg-surface-card border border-hairline rounded-lg shadow-xl p-2 min-w-[220px]">
+            {tools.map(tool => (
+              <a 
+                href={tool.href} 
+                class="block px-4 py-2 text-sm text-body hover:text-ink hover:bg-surface-strong rounded-md transition-colors"
+              >
+                {tool.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {navLinks.map(link => (
+        <a href={link.href} class="text-body hover:text-ink text-sm font-medium transition-colors">
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-4">
+    <div class="hidden sm:flex items-center gap-4">
+      <ThemeToggle />
+      <a href="/#tools" class="bg-primary hover:bg-primary-active text-white text-sm font-medium px-4 py-2 rounded-md transition-all active:scale-95 shadow-sm">
+        Browse Tools
+      </a>
+    </div>
+    
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="md:hidden p-2 text-ink hover:bg-surface-strong rounded-md transition-colors" aria-label="Toggle Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Panel -->
+<div id="mobile-menu" class="fixed inset-0 z-40 md:hidden invisible opacity-0 transition-all duration-300">
+  <div class="absolute inset-0 bg-canvas/60 backdrop-blur-sm"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-72 bg-surface-card border-l border-hairline p-6 flex flex-col translate-x-full transition-transform duration-300 shadow-2xl">
+    <div class="flex flex-col gap-6 mt-12">
+      <div class="space-y-2">
+        <!-- Tools Accordion -->
+        <div class="mobile-accordion">
+          <button id="mobile-tools-toggle" class="flex items-center justify-between w-full px-2 py-2 text-lg font-medium text-ink hover:text-primary transition-colors">
+            Tools
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="mobile-tools-list" class="hidden pl-4 space-y-2 mt-2">
+            {tools.map(tool => (
+              <a href={tool.href} class="block px-2 py-1 text-base text-body hover:text-ink transition-colors border-l border-hairline-soft">
+                {tool.title}
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        {navLinks.map(link => (
+          <a href={link.href} class="block px-2 py-2 text-lg font-medium text-ink hover:text-primary transition-colors">
+            {link.label}
+          </a>
+        ))}
+      </div>
+      
+      <div class="h-px bg-hairline-soft"></div>
+      
+      <div class="mt-auto space-y-6">
+        <div class="flex items-center justify-between px-2 py-4 bg-canvas-soft rounded-lg border border-hairline">
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-ink">Appearance</span>
+            <span class="text-xs text-muted">Switch between light & dark</span>
+          </div>
+          <ThemeToggle />
+        </div>
+        <a href="/#tools" class="block w-full bg-primary text-white text-center py-4 rounded-md font-semibold shadow-lg active:scale-95 transition-transform">
+          Browse All Tools
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuPanel = mobileMenu?.querySelector('div:last-child');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  
+  const mobileToolsToggle = document.getElementById('mobile-tools-toggle');
+  const mobileToolsList = document.getElementById('mobile-tools-list');
+  const toolsChevron = mobileToolsToggle?.querySelector('svg');
+
+  function toggleMenu() {
+    const isVisible = !mobileMenu?.classList.contains('invisible');
+    
+    if (isVisible) {
+      // Close
+      mobileMenu?.classList.add('invisible', 'opacity-0');
+      mobileMenuPanel?.classList.add('translate-x-full');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      document.body.style.overflow = '';
+      
+      // Reset tools accordion when closing menu
+      mobileToolsList?.classList.add('hidden');
+      toolsChevron?.classList.remove('rotate-180');
+    } else {
+      // Open
+      mobileMenu?.classList.remove('invisible', 'opacity-0');
+      mobileMenuPanel?.classList.remove('translate-x-full');
+      menuIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function toggleTools(e) {
+    e.stopPropagation();
+    const isHidden = mobileToolsList?.classList.contains('hidden');
+    
+    if (isHidden) {
+      mobileToolsList?.classList.remove('hidden');
+      toolsChevron?.classList.add('rotate-180');
+    } else {
+      mobileToolsList?.classList.add('hidden');
+      toolsChevron?.classList.remove('rotate-180');
+    }
+  }
+
+  mobileMenuButton?.addEventListener('click', toggleMenu);
+  mobileToolsToggle?.addEventListener('click', toggleTools);
+  
+  // Close menu when clicking backdrop
+  mobileMenu?.firstElementChild?.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking tools/links
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
+</script>

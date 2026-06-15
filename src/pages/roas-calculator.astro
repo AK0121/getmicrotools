@@ -1,0 +1,184 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+// Page Metadata
+const title = "ROAS & Profitability Engine | Get Micro Tools";
+const description = "Calculate your Return on Ad Spend, break-even points, and net profit for marketing campaigns.";
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+
+  <main class="min-h-screen bg-canvas transition-colors duration-500">
+    {/* Hero Header */}
+    <header class="max-w-7xl mx-auto px-6 pt-24 pb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-surface-strong text-ink text-[11px] font-semibold uppercase tracking-wider mb-6">
+        Marketing Tools
+      </div>
+      <h1 class="text-display-lg md:text-display-mega text-ink mb-6">
+        ROAS & Profitability Engine
+      </h1>
+      <p class="text-body text-lg max-w-2xl">
+        Stop flying blind on your ad spend. Calculate your exact ROAS, break-even points, and net profit margins with professional-grade accuracy.
+      </p>
+    </header>
+
+    {/* Calculator Interface */}
+    <div class="max-w-7xl mx-auto px-6 pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+        
+        {/* Left Column: Inputs */}
+        <div class="space-y-8">
+          <div class="p-8 rounded-2xl bg-surface-card border border-hairline shadow-sm space-y-6">
+            <h2 class="text-xs font-semibold uppercase tracking-widest text-muted mb-6">Campaign Variables</h2>
+            
+            <div class="space-y-5">
+              {/* Ad Spend */}
+              <div class="space-y-2">
+                <label class="text-sm text-ink font-medium" for="ad-spend">Total Ad Spend</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">$</span>
+                  <input type="number" id="ad-spend" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                </div>
+              </div>
+
+              {/* Revenue */}
+              <div class="space-y-2">
+                <label class="text-sm text-ink font-medium" for="revenue">Revenue Generated</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">$</span>
+                  <input type="number" id="revenue" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                </div>
+              </div>
+
+              {/* COGS / Product Cost per Unit */}
+              <div class="space-y-2">
+                <label class="text-sm text-ink font-medium" for="cost-per-unit">Cost of Goods Sold / Product Cost per Unit</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">$</span>
+                  <input type="number" id="cost-per-unit" placeholder="0.00" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                </div>
+              </div>
+
+              {/* Total Units Sold */}
+              <div class="space-y-2">
+                <label class="text-sm text-ink font-medium" for="units-sold">Total Units Sold</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted">#</span>
+                  <input type="number" id="units-sold" placeholder="0" class="w-full bg-canvas-soft border border-hairline rounded-xl pl-8 pr-4 py-3 text-ink focus:outline-none focus:border-primary transition-all placeholder:text-muted/40" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Metrics Dashboard */}
+        <div class="space-y-8">
+          <div class="p-8 md:p-12 rounded-2xl bg-surface-card border border-hairline sticky top-24 shadow-xl">
+            <h2 class="text-xs font-semibold uppercase tracking-widest text-muted mb-8">Live Metrics Dashboard</h2>
+            
+            <div class="space-y-10">
+              {/* ROAS */}
+              <div>
+                <span class="text-sm text-muted block mb-2 font-medium">Return on Ad Spend (ROAS)</span>
+                <div class="flex items-baseline gap-1">
+                  <span id="result-roas" class="text-6xl md:text-7xl font-light text-ink tracking-tighter">0.00</span>
+                  <span class="text-2xl text-muted font-light">x</span>
+                </div>
+              </div>
+
+              <div class="h-px bg-hairline"></div>
+
+              {/* Net Profit */}
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-muted font-medium">Net Profit</span>
+                  <span id="profit-badge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border"></span>
+                </div>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl text-muted font-light" id="profit-currency">$</span>
+                  <span id="result-profit" class="text-5xl md:text-6xl font-light text-ink tracking-tighter">0.00</span>
+                </div>
+              </div>
+
+              <div class="h-px bg-hairline"></div>
+
+              {/* Break-Even ROAS */}
+              <div>
+                <span class="text-sm text-muted block mb-2 font-medium">Break-Even ROAS</span>
+                <div class="flex items-baseline gap-1">
+                  <span id="break-even-roas" class="text-3xl md:text-4xl font-light text-ink tracking-tight">0.00</span>
+                  <span class="text-xl text-muted font-light">x</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  {/* Logic Layer */}
+  <script is:inline>
+    const adSpendInput = document.getElementById('ad-spend');
+    const revenueInput = document.getElementById('revenue');
+    const costPerUnitInput = document.getElementById('cost-per-unit');
+    const unitsSoldInput = document.getElementById('units-sold');
+
+    const resultRoas = document.getElementById('result-roas');
+    const resultProfit = document.getElementById('result-profit');
+    const breakEvenRoas = document.getElementById('break-even-roas');
+    const profitCurrency = document.getElementById('profit-currency');
+    const profitBadge = document.getElementById('profit-badge');
+
+    const calculate = () => {
+      const spend = parseFloat(adSpendInput.value) || 0;
+      const revenue = parseFloat(revenueInput.value) || 0;
+      const costPerUnit = parseFloat(costPerUnitInput.value) || 0;
+      const units = parseFloat(unitsSoldInput.value) || 0;
+
+      // Calculations
+      const roas = spend > 0 ? (revenue / spend) : 0;
+      const netProfit = revenue - spend - (costPerUnit * units);
+      const beRoas = spend > 0 ? ((spend + (costPerUnit * units)) / spend) : 0;
+
+      // Update ROAS & Break-Even UI
+      resultRoas.innerText = roas.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      breakEvenRoas.innerText = beRoas.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      
+      // Update Net Profit UI & State
+      resultProfit.innerText = Math.abs(netProfit).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      
+      if (netProfit > 0) {
+        resultProfit.className = "text-5xl md:text-6xl font-light text-emerald-500 tracking-tighter transition-colors duration-300";
+        profitCurrency.className = "text-3xl text-emerald-500/50 font-light transition-colors duration-300";
+        profitCurrency.innerText = "$";
+        
+        profitBadge.className = "inline-block px-2 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border border-emerald-500/20 bg-emerald-500/10 text-emerald-500";
+        profitBadge.innerText = "Profitable";
+      } else if (netProfit < 0) {
+        resultProfit.className = "text-5xl md:text-6xl font-light text-red-500 tracking-tighter transition-colors duration-300";
+        profitCurrency.className = "text-3xl text-red-500/50 font-light transition-colors duration-300";
+        profitCurrency.innerText = "-$";
+        
+        profitBadge.className = "inline-block px-2 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border border-red-500/20 bg-red-500/10 text-red-500";
+        profitBadge.innerText = "Loss";
+      } else {
+        resultProfit.className = "text-5xl md:text-6xl font-light text-ink tracking-tighter transition-colors duration-300";
+        profitCurrency.className = "text-3xl text-muted font-light transition-colors duration-300";
+        profitCurrency.innerText = "$";
+        profitBadge.className = "hidden";
+      }
+    };
+
+    // Attach listeners
+    [adSpendInput, revenueInput, costPerUnitInput, unitsSoldInput].forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+  </script>
+</Layout>

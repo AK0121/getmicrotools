@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors from DESIGN.md - Now using variables for dynamic switching */
+  --color-canvas: var(--canvas);
+  --color-canvas-soft: var(--canvas-soft);
+  --color-ink: var(--ink);
+  --color-primary: #f54e00;
+  --color-primary-active: #d04200;
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
+  --color-hairline-soft: var(--hairline-soft);
+  --color-surface-card: var(--surface-card);
+  --color-surface-strong: var(--surface-strong);
+
+  /* Timeline Colors */
+  --color-timeline-thinking: #dfa88f;
+  --color-timeline-grep: #9fc9a2;
+  --color-timeline-read: #9fbbe0;
+  --color-timeline-edit: #c0a8dd;
+  --color-timeline-done: #c08532;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Radii */
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  /* Spacing */
+  --spacing-section: 80px;
+}
+
+@layer base {
+  :root {
+    --canvas: #f7f7f4;
+    --canvas-soft: #fafaf7;
+    --ink: #26251e;
+    --body: #5a5852;
+    --muted: #807d72;
+    --hairline: #e6e5e0;
+    --hairline-soft: #efeee8;
+    --surface-card: #ffffff;
+    --surface-strong: #e6e5e0;
+  }
+
+  /* Quietly confident dark mode palette */
+  .dark {
+    --canvas: #121210;
+    --canvas-soft: #1a1a17;
+    --ink: #ecebe4;
+    --body: #a09e95;
+    --muted: #807d72;
+    --hairline: #2c2b26;
+    --hairline-soft: #23221e;
+    --surface-card: #1c1c1a;
+    --surface-strong: #2c2b26;
+  }
+
+  html,
+  body {
+    @apply bg-canvas text-body font-sans antialiased selection:bg-primary/20;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    /* Smooth theme transitions */
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-ink font-normal tracking-[-0.03em];
+    transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer utilities {
+  .text-display-mega {
+    font-size: clamp(40px, 8vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+  
+  .text-display-lg {
+    font-size: clamp(28px, 5vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  
+  .text-display-md {
+    font-size: clamp(20px, 4vw, 26px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .hairline-border {
+    @apply border border-hairline;
+  }
+}

@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  tag?: string;
+  href: string;
+}
+
+const { title, description, icon, tag, href } = Astro.props;
+---
+
+<a href={href} class="group relative block bg-surface-card border border-hairline rounded-lg p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:translate-y-[-4px]">
+  <div class="flex justify-between items-start mb-4">
+    <div class="w-10 h-10 rounded-md bg-canvas-soft border border-hairline flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+      {icon}
+    </div>
+    {tag && (
+      <span class="text-[10px] font-bold uppercase tracking-wider text-muted bg-surface-strong/40 px-2 py-0.5 rounded-pill">
+        {tag}
+      </span>
+    )}
+  </div>
+  
+  <h3 class="text-lg font-semibold text-ink mb-2 group-hover:text-primary transition-colors">
+    {title}
+  </h3>
+  
+  <p class="text-body text-sm leading-relaxed">
+    {description}
+  </p>
+  
+  <div class="mt-6 flex items-center text-xs font-medium text-muted group-hover:text-ink transition-colors">
+    Try it now 
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</a>
+
