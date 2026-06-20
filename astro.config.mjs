@@ -8,7 +8,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://getmicro.tools',
+  site: 'https://getmicrotools.com',
   integrations: [mcp(), sitemap()],
 
   vite: {
