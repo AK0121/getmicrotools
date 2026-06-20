@@ -14,12 +14,12 @@ const {
 	title = "Get Micro Tools | High-Performance Utilities for Creators", 
 	description = "A curated collection of free, professional-grade utilities for modern creators and marketers. Engagement calculators, ROAS engines, and social formatters in one place.",
 	image = "/apple-touch-icon.png",
-	url = "https://getmicro.tools",
+	url = Astro.url.href,
 	type = "website",
 	keywords = "creator tools, micro tools, engagement rate calculator, social media metrics, ROAS calculator, instagram reels tester"
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://getmicro.tools");
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -39,14 +39,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://getmicro
 		<meta property="og:url" content={url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(image, url)} />
+		<meta property="og:image" content={new URL(image, Astro.site)} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={url} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={new URL(image, url)} />
+		<meta property="twitter:image" content={new URL(image, Astro.site)} />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,6 +69,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://getmicro
 			}
 			window.localStorage.setItem('theme', theme);
 		</script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-T249V7NE2R"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-T249V7NE2R');
+		</script>
+
 		<title>{title}</title>
 	</head>
 	<body>

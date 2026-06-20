@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const title = "Privacy Policy | Get Micro Tools";
+const description = "Learn how Get Micro Tools handles your data. We prioritize your privacy and aim for maximum transparency in our operations.";
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+  <main class="max-w-4xl mx-auto px-6 py-24">
+    <header class="mb-12">
+      <h1 class="text-display-md text-ink mb-4">Privacy Policy</h1>
+      <p class="text-muted">Last updated: June 17, 2026</p>
+    </header>
+    
+    <div class="space-y-8 text-body leading-relaxed">
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">1. Introduction</h2>
+        <p>At Get Micro Tools, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website and use our tools.</p>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">2. Information We Collect</h2>
+        <p>We believe in data minimization. Most of our tools process data locally in your browser. However, we may collect:</p>
+        <ul class="list-disc pl-5 mt-2 space-y-1">
+          <li><strong>Usage Data:</strong> Information about how you use our site, such as pages visited and time spent.</li>
+          <li><strong>Technical Data:</strong> IP address, browser type, and operating system for security and performance monitoring.</li>
+          <li><strong>Contact Information:</strong> If you reach out to us via email or our contact form.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">3. How We Use Your Information</h2>
+        <p>We use the collected data to:</p>
+        <ul class="list-disc pl-5 mt-2 space-y-1">
+          <li>Provide and maintain our Service.</li>
+          <li>Improve our tools based on usage patterns.</li>
+          <li>Respond to your inquiries and support requests.</li>
+          <li>Monitor and prevent fraudulent activity.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">4. Data Security</h2>
+        <p>We implement industry-standard security measures to protect your data. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">5. Cookies and Tracking</h2>
+        <p>We may use cookies to enhance your experience and analyze site traffic. You can choose to disable cookies through your browser settings, though this may affect some site functionality.</p>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">6. Third-Party Services</h2>
+        <p>Our Service may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites.</p>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">7. Your Rights</h2>
+        <p>Depending on your location, you may have rights regarding your personal data, including the right to access, correct, or delete the information we hold about you.</p>
+      </section>
+
+      <section>
+        <h2 class="text-title-sm text-ink mb-3">8. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@getmicrotools.com" class="text-primary hover:underline">privacy@getmicrotools.com</a>.</p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>

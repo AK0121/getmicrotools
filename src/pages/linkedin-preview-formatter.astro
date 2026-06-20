@@ -2,7 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
 
+const faqs = [
+  {
+    question: "What is a LinkedIn text formatter?",
+    answer: "A LinkedIn text formatter is a tool that allows you to create stylized text (like bold, italics, or different fonts) for your LinkedIn posts. Since LinkedIn doesn't have these options built-in, the tool uses Unicode characters to achieve the look."
+  },
+  {
+    question: "How do I get bold text on LinkedIn?",
+    answer: "To get bold text on LinkedIn, simply type your post into our free LinkedIn text formatter, select the text you want to bold, and click the 'Bold' button. Then, copy and paste the result directly into your LinkedIn post."
+  },
+  {
+    question: "What is the LinkedIn 'See More' cutoff?",
+    answer: "The 'See More' cutoff is the point where LinkedIn truncates your post in the feed. Our LinkedIn post preview generator helps you see this cutoff (approx. 140 chars on mobile, 210 on desktop) so you can keep your hook visible."
+  },
+  {
+    question: "Is it safe to use Unicode characters for LinkedIn formatting?",
+    answer: "Yes, it's generally safe, but should be used sparingly. Unicode characters are not standard text and might not be read correctly by screen readers. We recommend using them for emphasis on a few words rather than for your entire post to maintain accessibility."
+  }
+];
+
+// Page Metadata
 const title = "LinkedIn Text Formatter & Post Preview Generator | Free Tool";
 const description = "Use our free LinkedIn text formatter to create bold and italic text. Preview your LinkedIn post to avoid the 'see more' cutoff and optimize engagement.";
 const keywords = "linkedin text formatter, linkedin post preview, linkedin post preview generator, free linkedin text formatter, linkedin formatting tool";
@@ -195,78 +216,7 @@ const url = "https://getmicro.tools/linkedin-preview-formatter";
 
         <!-- Tool Specific FAQs -->
         <div class="mt-24">
-          <h2 class="text-display-md text-ink mb-12">LinkedIn Text Formatter FAQ</h2>
-          <div class="grid gap-4">
-            <details class="group border border-hairline rounded-lg bg-surface-card overflow-hidden transition-all duration-300">
-              <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 class="text-title-sm text-ink pr-8 font-semibold">What is a LinkedIn text formatter?</h3>
-                <span class="transition-transform duration-300 group-open:rotate-180 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6 text-body-sm text-muted leading-relaxed border-t border-hairline-soft pt-4">
-                A LinkedIn text formatter is a tool that allows you to create stylized text (like bold, italics, or different fonts) for your LinkedIn posts. Since LinkedIn doesn't have these options built-in, the tool uses Unicode characters to achieve the look.
-              </div>
-            </details>
-
-            <details class="group border border-hairline rounded-lg bg-surface-card overflow-hidden transition-all duration-300">
-              <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 class="text-title-sm text-ink pr-8 font-semibold">How do I get bold text on LinkedIn?</h3>
-                <span class="transition-transform duration-300 group-open:rotate-180 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6 text-body-sm text-muted leading-relaxed border-t border-hairline-soft pt-4">
-                To get bold text on LinkedIn, simply type your post into our <strong>free LinkedIn text formatter</strong>, select the text you want to bold, and click the "Bold" button. Then, copy and paste the result directly into your LinkedIn post.
-              </div>
-            </details>
-
-            <details class="group border border-hairline rounded-lg bg-surface-card overflow-hidden transition-all duration-300">
-              <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 class="text-title-sm text-ink pr-8 font-semibold">What is the LinkedIn 'See More' cutoff?</h3>
-                <span class="transition-transform duration-300 group-open:rotate-180 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6 text-body-sm text-muted leading-relaxed border-t border-hairline-soft pt-4">
-                The 'See More' cutoff is the point where LinkedIn truncates your post in the feed. Our <strong>LinkedIn post preview generator</strong> helps you see this cutoff (approx. 140 chars on mobile, 210 on desktop) so you can keep your hook visible.
-              </div>
-            </details>
-
-            <details class="group border border-hairline rounded-lg bg-surface-card overflow-hidden transition-all duration-300">
-              <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 class="text-title-sm text-ink pr-8 font-semibold">Is it safe to use Unicode characters for LinkedIn formatting?</h3>
-                <span class="transition-transform duration-300 group-open:rotate-180 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6 text-body-sm text-muted leading-relaxed border-t border-hairline-soft pt-4">
-                Yes, it is generally safe. However, use it sparingly. Excessive use can make posts hard to read for screen readers used by the visually impaired. We recommend only bolding or italicizing key words or headlines.
-              </div>
-            </details>
-
-            <details class="group border border-hairline rounded-lg bg-surface-card overflow-hidden transition-all duration-300">
-              <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 class="text-title-sm text-ink pr-8 font-semibold">Does LinkedIn formatting affect SEO?</h3>
-                <span class="transition-transform duration-300 group-open:rotate-180 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6 text-body-sm text-muted leading-relaxed border-t border-hairline-soft pt-4">
-                Stylized Unicode text is not indexed by search engines the same way as standard text. If you want your post to be searchable on Google or LinkedIn's internal search, ensure your main keywords are in standard, unformatted text.
-              </div>
-            </details>
-          </div>
+          <FAQ faqs={faqs} title="LinkedIn Text Formatter FAQ" description="" />
         </div>
       </div>
     </section>

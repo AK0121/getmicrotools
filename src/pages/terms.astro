@@ -2,9 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+
+const title = "Terms & Conditions | Get Micro Tools";
+const description = "Review the terms and conditions for using Get Micro Tools. Our service is designed to be transparent, fair, and easy to understand.";
 ---
 
-<Layout title="Terms & Conditions | Get Micro Tools">
+<Layout title={title} description={description}>
   <Nav />
   <main class="max-w-4xl mx-auto px-6 py-24">
     <header class="mb-12">
@@ -25,7 +28,7 @@ import Footer from '../components/Footer.astro';
 
       <section>
         <h2 class="text-title-sm text-ink mb-3">3. Privacy</h2>
-        <p>Your privacy is important to us. Our tools are designed to process data locally whenever possible. Any data sent to our servers is handled in accordance with our Privacy Policy.</p>
+        <p>Your privacy is important to us. Our tools are designed to process data locally whenever possible. Any data sent to our servers is handled in accordance with our <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>.</p>
       </section>
 
       <section>

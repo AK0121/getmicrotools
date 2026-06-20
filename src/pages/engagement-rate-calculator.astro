@@ -2,6 +2,26 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
+
+const faqs = [
+  {
+    question: "Is this a free engagement rate calculator?",
+    answer: "Yes, our tool is 100% free to use. You can calculate metrics for as many accounts as you like without any hidden costs or registration requirements."
+  },
+  {
+    question: "Which platforms does this calculator support?",
+    answer: "While we have dedicated tabs for Instagram, TikTok, and X (Twitter), you can use the general formulas to calculate rates for Facebook, YouTube, and LinkedIn by inputting the relevant interaction data."
+  },
+  {
+    question: "Should I calculate based on followers or reach?",
+    answer: "Calculating based on reach is often more accurate for individual post performance, as it shows how many people who actually saw the post engaged with it. Calculating based on followers is better for understanding your overall account health and community loyalty."
+  },
+  {
+    question: "How often should I check my engagement rate?",
+    answer: "We recommend checking your engagement rate weekly to spot trends and monthly to evaluate your overall content strategy. Significant changes in engagement can often signal a shift in platform algorithms or audience preferences."
+  }
+];
 
 // Page Metadata
 const title = "Engagement Rate Calculator - Free Social Media Tool | Get Micro Tools";
@@ -11,7 +31,7 @@ const url = "https://getmicro.tools/engagement-rate-calculator";
 ---
 
 <Layout 
-  title={title} 
+  title={title}
   description={description} 
   keywords={keywords}
   url={url}
@@ -297,25 +317,7 @@ const url = "https://getmicro.tools/engagement-rate-calculator";
           If your results from the <strong>engagement rate calculator</strong> aren't where you want them to be, try asking more questions to encourage comments, posting more consistently, and engaging back with your community by replying to their feedback. High-quality visuals are also essential to stop the scroll.
         </p>
 
-        <h3 class="text-title-md text-ink mb-4">Frequently Asked Questions</h3>
-        <div class="space-y-6 mb-8">
-          <div>
-            <h4 class="text-ink font-semibold mb-2">Is this a free engagement rate calculator?</h4>
-            <p class="text-body">Yes, our tool is 100% free to use. You can calculate metrics for as many accounts as you like without any hidden costs or registration requirements.</p>
-          </div>
-          <div>
-            <h4 class="text-ink font-semibold mb-2">Which platforms does this calculator support?</h4>
-            <p class="text-body">While we have dedicated tabs for Instagram, TikTok, and X (Twitter), you can use the general formulas to calculate rates for Facebook, YouTube, and LinkedIn by inputting the relevant interaction data.</p>
-          </div>
-          <div>
-            <h4 class="text-ink font-semibold mb-2">Should I calculate based on followers or reach?</h4>
-            <p class="text-body">Calculating based on <strong>reach</strong> is often more accurate for individual post performance, as it shows how many people who actually saw the post engaged with it. Calculating based on <strong>followers</strong> is better for understanding your overall account health and community loyalty.</p>
-          </div>
-          <div>
-            <h4 class="text-ink font-semibold mb-2">How often should I check my engagement rate?</h4>
-            <p class="text-body">We recommend checking your engagement rate weekly to spot trends and monthly to evaluate your overall content strategy. Significant changes in engagement can often signal a shift in platform algorithms or audience preferences.</p>
-          </div>
-        </div>
+        <FAQ faqs={faqs} title="Frequently Asked Questions" description="" />
 
         <p class="text-body">
           Our <strong>free engagement rate calculator</strong> is here to help you navigate the complex world of social media metrics. Start calculating today and take the first step towards a more engaged and impactful online presence.

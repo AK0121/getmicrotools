@@ -2,6 +2,34 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
+
+const faqs = [
+  {
+    question: "What is a good ROAS?",
+    answer: "A 'good' ROAS depends on your profit margins. If you have high margins (80%), a 2.0x ROAS might be great. If you have low margins (20%), you might need a 5.0x ROAS just to break even."
+  },
+  {
+    question: "How do I calculate break-even ROAS?",
+    answer: "The formula is 1 / Profit Margin %. For example, if your margin is 50%, your break-even ROAS is 1 / 0.5 = 2.0x. Use our break even roas calculator above to get your exact number."
+  },
+  {
+    question: "Why is my ROAS dropping?",
+    answer: "Common reasons include ad fatigue (audience getting bored), increased competition, or technical issues on your website's checkout page."
+  },
+  {
+    question: "Is ROAS better than ROI?",
+    answer: "ROAS measures specific ad effectiveness, while ROI measures the total profitability of the business. Both are important for a complete marketing strategy."
+  },
+  {
+    question: "Can ROAS be negative?",
+    answer: "No, ROAS is always a positive number or zero. However, your net profit can be negative if your ad spend exceeds your gross profit."
+  },
+  {
+    question: "Does ROAS include shipping costs?",
+    answer: "Typically, ROAS only looks at Revenue / Ad Spend. However, when calculating your profit margin for our calculator, you should factor in all costs like shipping and COGS."
+  }
+];
 
 // Page Metadata
 const title = "ROAS Calculator | Break-Even & Profitability Tool | Get Micro Tools";
@@ -228,33 +256,7 @@ const url = "https://getmicro.tools/roas-calculator";
 
       {/* FAQ Section */}
       <section class="mt-24 max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12 text-center">ROAS Frequently Asked Questions</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
-            <h3 class="font-bold text-lg mb-3">What is a good ROAS?</h3>
-            <p class="text-sm text-muted">A "good" ROAS depends on your profit margins. If you have high margins (80%), a 2.0x ROAS might be great. If you have low margins (20%), you might need a 5.0x ROAS just to break even.</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
-            <h3 class="font-bold text-lg mb-3">How do I calculate break-even ROAS?</h3>
-            <p class="text-sm text-muted">The formula is 1 / Profit Margin %. For example, if your margin is 50%, your break-even ROAS is 1 / 0.5 = 2.0x. Use our <strong>break even roas calculator</strong> above to get your exact number.</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
-            <h3 class="font-bold text-lg mb-3">Why is my ROAS dropping?</h3>
-            <p class="text-sm text-muted">Common reasons include ad fatigue (audience getting bored), increased competition, or technical issues on your website's checkout page.</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
-            <h3 class="font-bold text-lg mb-3">Is ROAS better than ROI?</h3>
-            <p class="text-sm text-muted">ROAS measures specific ad effectiveness, while ROI measures the total profitability of the business. Both are important for a complete marketing strategy.</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
-            <h3 class="font-bold text-lg mb-3">Can ROAS be negative?</h3>
-            <p class="text-sm text-muted">No, ROAS is always a positive number or zero. However, your <strong>net profit</strong> can be negative if your ad spend exceeds your gross profit.</p>
-          </div>
-          <div class="p-6 rounded-2xl bg-surface-card border border-hairline">
-            <h3 class="font-bold text-lg mb-3">Does ROAS include shipping costs?</h3>
-            <p class="text-sm text-muted">Typically, ROAS only looks at Revenue / Ad Spend. However, when calculating your <strong>profit margin</strong> for our calculator, you should factor in all costs like shipping and COGS.</p>
-          </div>
-        </div>
+        <FAQ faqs={faqs} title="ROAS Frequently Asked Questions" description="" />
       </section>
     </div>
   </main>
@@ -366,6 +368,4 @@ const url = "https://getmicro.tools/roas-calculator";
       }
     });
   </script>
-</Layout>
-/script>
 </Layout>
