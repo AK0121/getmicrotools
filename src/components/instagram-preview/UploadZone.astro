@@ -1,0 +1,25 @@
+---
+// src/components/instagram-preview/UploadZone.astro
+---
+<div 
+  id="drop-zone"
+  class="group relative border-2 border-dashed border-hairline hover:border-primary bg-surface-card rounded-xl p-12 text-center transition-all cursor-pointer"
+>
+  <input 
+    type="file" 
+    id="file-upload" 
+    accept="image/*,video/mp4" 
+    class="absolute inset-0 opacity-0 cursor-pointer z-10"
+  />
+  <div class="space-y-6 pointer-events-none">
+    <div class="w-20 h-20 bg-canvas-soft rounded-full flex items-center justify-center mx-auto border border-hairline group-hover:border-primary/50 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-muted group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+      </svg>
+    </div>
+    <div>
+      <p class="text-ink text-xl font-medium mb-2">Drop your media here</p>
+      <p class="text-muted text-sm">Supports images (JPG, PNG) and MP4 videos (9:16 recommended)</p>
+    </div>
+  </div>
+</div>
