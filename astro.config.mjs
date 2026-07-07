@@ -12,7 +12,7 @@ export default defineConfig({
   integrations: [mcp(), sitemap()],
 
   vite: {
-    plugins: [tailwind()]
+    plugins: [tailwind()],
   },
 
   adapter: cloudflare()
