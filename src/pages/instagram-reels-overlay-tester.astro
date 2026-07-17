@@ -3,8 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import UploadZone from '../components/instagram-preview/UploadZone.astro';
+import OverlayControls from '../components/instagram-preview/OverlayControls.astro';
 import SafeZoneGuide from '../components/instagram-preview/SafeZoneGuide.astro';
 import ReelsMockup from '../components/instagram-preview/ReelsMockup.astro';
+import FormatSelector from '../components/instagram-preview/FormatSelector.astro';
 
 const title = "Instagram Reels Safe Zone Checker | Reels Overlay Tester";
 const description = "Test your content with our free Instagram reels safe zone checker. Ensure your text and visuals aren't blocked by UI elements with our reels overlay tester.";
@@ -37,7 +39,11 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
         {/* Left Side: Upload Zone */}
         <div class="space-y-8">
           <UploadZone />
-          <SafeZoneGuide />
+          <FormatSelector />
+          <div id="reels-controls-group" class="space-y-8 transition-all duration-200">
+            <OverlayControls />
+            <SafeZoneGuide />
+          </div>
         </div>
 
         {/* Right Side: Smartphone Mockup */}
@@ -146,8 +152,88 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
     const toggleFitOriginal = document.getElementById('toggle-fit-original');
     const toggleFitFill = document.getElementById('toggle-fit-fill');
     const aspectBadge = document.getElementById('detected-aspect-ratio');
+    const clearMediaBtn = document.getElementById('clear-media-btn');
+
+    // Format selection variables
+    const formatReelsBtn = document.getElementById('format-reels');
+    const formatPortraitBtn = document.getElementById('format-portrait');
+    const mockupContainer = document.getElementById('mockup-container');
+    const reelsControlsGroup = document.getElementById('reels-controls-group');
+    const portraitViewsOverlay = document.getElementById('portrait-views-overlay');
+    const fitModeSelectorContainer = document.getElementById('fit-mode-selector-container');
 
     let currentFitMode = 'original'; // 'original' by default
+    let currentFormat = 'reels'; // 'reels' by default
+
+    const updateFormat = (format) => {
+      currentFormat = format;
+      
+      if (!mockupContainer) return;
+
+      // Update button styling
+      if (formatReelsBtn && formatPortraitBtn) {
+        if (format === 'reels') {
+          formatReelsBtn.className = "py-2 px-1 text-center rounded-lg transition-all duration-150 cursor-pointer bg-[#f54e00] text-ink shadow-xs border border-hairline/10 font-bold";
+          formatPortraitBtn.className = "py-2 px-1 text-center rounded-lg transition-all duration-150 cursor-pointer text-muted hover:text-ink bg-transparent font-medium";
+        } else {
+          formatReelsBtn.className = "py-2 px-1 text-center rounded-lg transition-all duration-150 cursor-pointer text-muted hover:text-ink bg-transparent font-medium";
+          formatPortraitBtn.className = "py-2 px-1 text-center rounded-lg transition-all duration-150 cursor-pointer bg-[#f54e00] text-ink shadow-xs border border-hairline/10 font-bold";
+        }
+      }
+
+      // Update mockup container class for aspect ratio and hiding Reels overlays
+      if (format === 'reels') {
+        mockupContainer.classList.remove('aspect-[4/5]', 'format-portrait');
+        mockupContainer.classList.add('aspect-[9/19]', 'format-reels');
+        if (reelsControlsGroup) {
+          reelsControlsGroup.classList.remove('hidden');
+        }
+        if (portraitViewsOverlay) {
+          portraitViewsOverlay.classList.add('hidden');
+          portraitViewsOverlay.classList.remove('flex');
+        }
+        if (fitModeSelectorContainer) {
+          fitModeSelectorContainer.classList.remove('hidden');
+        }
+
+        // Restore Reels fit mode selection
+        const mediaElement = mediaViewport ? mediaViewport.querySelector('img, video') : null;
+        if (mediaElement) {
+          if (currentFitMode === 'original') {
+            mediaElement.classList.remove('object-cover');
+            mediaElement.classList.add('object-contain');
+          } else {
+            mediaElement.classList.remove('object-contain');
+            mediaElement.classList.add('object-cover');
+          }
+        }
+      } else if (format === 'portrait') {
+        mockupContainer.classList.remove('aspect-[9/19]', 'format-reels');
+        mockupContainer.classList.add('aspect-[4/5]', 'format-portrait');
+        if (reelsControlsGroup) {
+          reelsControlsGroup.classList.add('hidden');
+        }
+        if (portraitViewsOverlay) {
+          portraitViewsOverlay.classList.remove('hidden');
+          portraitViewsOverlay.classList.add('flex');
+        }
+        if (fitModeSelectorContainer) {
+          fitModeSelectorContainer.classList.add('hidden');
+        }
+
+        // Force Zoomed/Fill screen (object-cover) for Portrait Feed
+        const mediaElement = mediaViewport ? mediaViewport.querySelector('img, video') : null;
+        if (mediaElement) {
+          mediaElement.classList.remove('object-contain');
+          mediaElement.classList.add('object-cover');
+        }
+      }
+    };
+
+    if (formatReelsBtn && formatPortraitBtn) {
+      formatReelsBtn.addEventListener('click', () => updateFormat('reels'));
+      formatPortraitBtn.addEventListener('click', () => updateFormat('portrait'));
+    }
 
     const updateFitMode = (mode) => {
       currentFitMode = mode;
@@ -163,8 +249,8 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
         }
       }
 
-      // Update active media if loaded
-      if (mediaViewport) {
+      // Update active media if loaded (only when in reels format)
+      if (mediaViewport && currentFormat === 'reels') {
         const mediaElement = mediaViewport.querySelector('img, video');
         if (mediaElement) {
           if (mode === 'original') {
@@ -193,7 +279,9 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
         const source = e.target.result;
         mediaViewport.innerHTML = ''; // Clear preview
 
-        const config = getMediaConfig(isVideo, currentFitMode);
+        // Portrait format is locked to 'fill', otherwise use currentFitMode
+        const activeFit = currentFormat === 'portrait' ? 'fill' : currentFitMode;
+        const config = getMediaConfig(isVideo, activeFit);
         const element = document.createElement(config.tagName);
         element.className = config.className;
         
@@ -227,6 +315,12 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
 
         element.src = source;
         mediaViewport.appendChild(element);
+
+        // Show the Clear/Remove button
+        if (clearMediaBtn) {
+          clearMediaBtn.classList.remove('hidden');
+          clearMediaBtn.classList.add('flex');
+        }
       };
 
       reader.readAsDataURL(file);
@@ -236,6 +330,30 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
       fileUpload.addEventListener('change', (e) => {
         handleMedia(e.target.files[0]);
       });
+
+      if (clearMediaBtn) {
+        clearMediaBtn.addEventListener('click', () => {
+          if (fileUpload) {
+            fileUpload.value = '';
+          }
+          if (mediaViewport) {
+            mediaViewport.innerHTML = `
+              <div class="text-zinc-600 flex flex-col items-center gap-4 text-center px-8">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-40 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <p class="text-[10px] font-semibold uppercase tracking-[0.2em] opacity-40 text-white">Preview Area</p>
+              </div>
+            `;
+          }
+          if (aspectBadge) {
+            aspectBadge.textContent = '';
+            aspectBadge.classList.add('hidden');
+          }
+          clearMediaBtn.classList.add('hidden');
+          clearMediaBtn.classList.remove('flex');
+        });
+      }
 
       // Drag and Drop Logic
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -263,6 +381,52 @@ const url = "https://getmicro.tools/instagram-reels-overlay-tester";
         handleMedia(file);
       }, false);
     }
+
+    // UI Overlay Toggles Logic
+    const registerToggle = (toggleId, overlayId, containerClass = '') => {
+      const toggleEl = document.getElementById(toggleId);
+      const overlayEl = document.getElementById(overlayId);
+      const mockupContainer = document.getElementById('mockup-container');
+
+      if (toggleEl && overlayEl) {
+        // Set initial state matching checkbox status
+        const isChecked = toggleEl.checked;
+        if (isChecked) {
+          overlayEl.classList.remove('hidden');
+          if (containerClass && mockupContainer) {
+            mockupContainer.classList.add(containerClass);
+          }
+        } else {
+          overlayEl.classList.add('hidden');
+          if (containerClass && mockupContainer) {
+            mockupContainer.classList.remove(containerClass);
+          }
+        }
+
+        toggleEl.addEventListener('change', (e) => {
+          const checked = e.target.checked;
+          if (checked) {
+            overlayEl.classList.remove('hidden');
+            if (containerClass && mockupContainer) {
+              mockupContainer.classList.add(containerClass);
+            }
+          } else {
+            overlayEl.classList.add('hidden');
+            if (containerClass && mockupContainer) {
+              mockupContainer.classList.remove(containerClass);
+            }
+          }
+        });
+      }
+    };
+
+    // Register all 6 overlays
+    registerToggle('toggle-top-header', 'overlay-top-header');
+    registerToggle('toggle-right-action', 'overlay-right-action');
+    registerToggle('toggle-profile', 'overlay-profile');
+    registerToggle('toggle-caption', 'overlay-caption');
+    registerToggle('toggle-bottom-cta', 'overlay-bottom-cta', 'show-bottom-cta');
+    registerToggle('toggle-bottom-nav', 'overlay-bottom-nav', 'show-bottom-nav');
   </script>
   </div>
 </Layout>

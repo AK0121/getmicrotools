@@ -1,0 +1,28 @@
+---
+// src/components/instagram-preview/FormatSelector.astro
+---
+<div class="bg-surface-card border border-hairline p-6 rounded-xl space-y-4">
+  <div>
+    <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-muted mb-1">Preview Format</h3>
+    <p class="text-xs text-muted">Select the Instagram format to preview your media.</p>
+  </div>
+  
+  <div class="grid grid-cols-2 p-1 bg-canvas-soft border border-hairline rounded-xl text-[10px] sm:text-xs font-semibold relative z-20">
+    <button 
+      type="button"
+      id="format-reels"
+      class="py-2 px-1 text-center rounded-lg transition-all duration-150 cursor-pointer bg-[#f54e00] text-ink shadow-xs border border-hairline/10 font-bold"
+      data-format="reels"
+    >
+      Reels (9:16)
+    </button>
+    <button 
+      type="button"
+      id="format-portrait"
+      class="py-2 px-1 text-center rounded-lg transition-all duration-150 cursor-pointer text-muted hover:text-ink bg-transparent"
+      data-format="portrait"
+    >
+      Portrait Feed (4:5)
+    </button>
+  </div>
+</div>
