@@ -3,13 +3,13 @@
 ---
 <div class="flex flex-col items-center lg:items-end gap-6 w-full">
   {/* Toggle and info header */}
-  <div class="w-full max-w-[360px] flex flex-col gap-3">
+  <div id="mockup-header-container" class="w-full max-w-[360px] flex flex-col gap-3 transition-all duration-200">
     <div class="flex items-center justify-between">
       <span class="text-[11px] font-semibold text-muted uppercase tracking-wider">Preview Mode</span>
       <span id="detected-aspect-ratio" class="text-[10px] sm:text-xs font-semibold text-primary hidden bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20"></span>
     </div>
     
-    <div class="grid grid-cols-2 p-1 bg-surface-card border border-hairline rounded-xl text-[10px] sm:text-xs font-medium relative z-20">
+    <div id="fit-mode-selector-container" class="grid grid-cols-2 p-1 bg-surface-card border border-hairline rounded-xl text-[10px] sm:text-xs font-medium relative z-20 transition-all duration-150">
       <button 
         type="button"
         id="toggle-fit-original"
@@ -27,8 +27,8 @@
     </div>
   </div>
 
-  {/* Mockup Outer Container */}
-  <div class="relative w-full max-w-[360px] aspect-[9/16] bg-black rounded-[3.5rem] border-[10px] border-surface-strong shadow-[0_0_50px_rgba(0,0,0,0.1)] overflow-hidden ring-1 ring-hairline select-none">
+  {/* Mockup Outer Container (taller aspect ratio of 9/19 for modern viewports) */}
+  <div id="mockup-container" class="relative w-full max-w-[360px] aspect-[9/19] bg-black rounded-2xl border border-hairline shadow-2xl overflow-hidden select-none show-bottom-nav transition-all duration-200">
     
     {/* Dynamic Media Container */}
     <div id="media-viewport" class="absolute inset-0 flex items-center justify-center bg-zinc-950">
@@ -42,177 +42,209 @@
 
     {/* Shadows & Gradients overlays for UI readability */}
     {/* Top Gradient */}
-    <div class="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/45 via-black/10 to-transparent pointer-events-none z-10"></div>
+    <div class="reels-overlay absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/45 via-black/10 to-transparent pointer-events-none z-10"></div>
     {/* Bottom Gradient */}
-    <div class="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none z-10"></div>
+    <div class="reels-overlay absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none z-10"></div>
 
-    {/* Phone Status Bar (Simulated iOS style) */}
-    <div class="absolute top-2.5 left-0 right-0 px-8 flex justify-between items-center text-[10px] font-semibold text-white/90 z-30 pointer-events-none select-none tracking-tight">
-      <div>9:41</div>
-      <div class="flex items-center gap-1.5">
-        {/* Signal Bars */}
-        <svg width="13" height="9" viewBox="0 0 24 24" fill="currentColor" class="opacity-95">
-          <rect x="1" y="16" width="3" height="5" rx="0.5"></rect>
-          <rect x="6" y="12" width="3" height="9" rx="0.5"></rect>
-          <rect x="11" y="8" width="3" height="13" rx="0.5"></rect>
-          <rect x="16" y="4" width="3" height="17" rx="0.5"></rect>
-          <rect x="21" y="0" width="3" height="21" rx="0.5" class="opacity-30"></rect>
-        </svg>
-        {/* Wifi Icon */}
-        <svg width="13" height="10" viewBox="0 0 24 24" fill="currentColor" class="opacity-95">
-          <path d="M12 21a2 2 0 1 1-2-2 2 2 0 0 1 2 2zm0-5a7 7 0 0 0-7 7h2a5 5 0 0 1 8 0h2a7 7 0 0 0-5-7zm0-5a12 12 0 0 0-12 12h2a10 10 0 0 1 18 0h2a12 12 0 0 0-10-12z"/>
-        </svg>
-        {/* Battery Container */}
-        <div class="w-[20px] h-3 border border-white/75 rounded-[3.5px] p-[1.5px] flex items-center justify-start opacity-95">
-          <div class="h-full w-[12px] bg-white rounded-[1.5px]"></div>
-        </div>
-      </div>
-    </div>
-
-    {/* Top Navigation */}
-    <div class="absolute top-7 left-0 right-0 h-12 flex items-center justify-between px-5 text-white z-30 select-none">
+    {/* Top Navigation Overlay */}
+    <div id="overlay-top-header" class="reels-overlay absolute top-3 left-0 right-0 h-12 flex items-center justify-between px-4 text-white z-30 select-none">
       <button class="pointer-events-auto p-1.5 hover:bg-white/10 rounded-full active:scale-95 transition-all duration-150">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"></polyline>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </button>
-      <div class="flex items-center gap-1 cursor-pointer pointer-events-auto active:opacity-80 transition-opacity">
-        <span class="text-sm font-bold tracking-tight">Reels</span>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="mt-0.5 opacity-90">
-          <path d="M12 16.5l-6-6h12z"/>
-        </svg>
+      <div class="flex items-center gap-4 cursor-pointer pointer-events-auto active:opacity-80 transition-opacity">
+        <div class="flex items-center gap-1">
+          <span class="text-[15px] font-bold text-white tracking-tight">Reels</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="mt-0.5 opacity-90 text-white">
+            <path d="M12 16.5l-6-6h12z"/>
+          </svg>
+        </div>
+        <div class="flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity">
+          <span class="text-[15px] font-semibold text-white tracking-tight">Friends</span>
+          <span class="inline-flex w-7 h-4 bg-white/20 rounded-full p-[2px] items-center relative shrink-0">
+            <span class="absolute left-[3px] w-2.5 h-2.5 rounded-full bg-white/40"></span>
+            <span class="absolute right-[3px] w-2.5 h-2.5 rounded-full bg-white"></span>
+          </span>
+        </div>
       </div>
-      <button class="pointer-events-auto p-1.5 hover:bg-white/10 rounded-full active:scale-95 transition-all duration-150">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-          <circle cx="12" cy="13" r="4"></circle>
-        </svg>
-      </button>
+      <div class="w-8"></div>
     </div>
 
-    {/* Bottom Left Info Area */}
-    <div class="absolute left-4 bottom-6 right-18 z-30 flex flex-col gap-3 pointer-events-none select-none text-white">
-      {/* Profile Info & Follow Button */}
-      <div class="flex items-center gap-2.5">
-        {/* Instagram Profile Ring Placeholder */}
-        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[1.5px] shadow-md flex items-center justify-center shrink-0">
-          <div class="w-full h-full rounded-full bg-zinc-800 border border-black flex items-center justify-center overflow-hidden">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-300">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
+    {/* Bottom Left Info Area Wrapper */}
+    <div id="bottom-info-area" class="reels-overlay absolute left-4 bottom-6 right-18 z-30 flex flex-col gap-2.5 pointer-events-none select-none text-white bottom-overlay-area">
+      {/* Profile Section Overlay */}
+      <div id="overlay-profile" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full border border-white/20 overflow-hidden bg-zinc-800 flex items-center justify-center shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-400">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
         </div>
-        <div class="flex items-center gap-1.5 pointer-events-auto">
-          <span class="text-[13px] font-semibold tracking-wide text-white drop-shadow-sm truncate max-w-[100px]">your_username</span>
-          <span class="text-white/60 text-[10px] select-none">•</span>
-          <button class="px-2.5 py-1 text-[11px] font-semibold border border-white/35 rounded-[6px] bg-white/5 backdrop-blur-xs hover:bg-white/15 active:scale-95 transition-all duration-150 leading-none">
+        <div class="flex items-center gap-2 pointer-events-auto">
+          <span class="text-[13px] font-semibold tracking-wide text-white drop-shadow-sm truncate max-w-[120px]">Tyler_Durden</span>
+          {/* IG Blue Verification Checkmark Starburst */}
+          <svg class="w-[14px] h-[14px] text-[#0095f6] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a1 1 0 0 1 .7.3l.8.8a1 1 0 0 0 .7.3h1.1a1 1 0 0 1 1 1v1.1c0 .3.1.5.3.7l.8.8a1 1 0 0 1 0 1.4l-.8.8a1 1 0 0 0-.3.7v1.1a1 1 0 0 1-1 1h-1.1a1 1 0 0 0-.7.3l-.8.8a1 1 0 0 1-1.4 0l-.8-.8a1 1 0 0 0-.7.3H9.4a1 1 0 0 1-1-1v-1.1c0-.3-.1-.5-.3-.7l-.8-.8a1 1 0 0 1 0-1.4l.8-.8c.2-.2.3-.4.3-.7V6.4a1 1 0 0 1 1-1h1.1c.3 0 .5-.1.7-.3l.8-.8A1 1 0 0 1 12 2zm-1.8 13.7l5.2-5.2-1.4-1.4-3.8 3.8-1.8-1.8-1.4 1.4z"/>
+          </svg>
+          <button class="px-2.5 py-1 text-[11px] font-semibold border border-white/40 rounded-[6px] bg-transparent hover:bg-white/10 active:scale-95 transition-all duration-150 leading-none">
             Follow
           </button>
         </div>
       </div>
 
-      {/* Caption & Hashtags */}
-      <div class="space-y-2 pointer-events-auto">
+      {/* Caption Overlay */}
+      <div id="overlay-caption" class="pointer-events-auto">
         <p class="text-[13px] text-white/95 leading-[1.4] drop-shadow-sm font-normal pr-4 line-clamp-2">
-          Testing my content safe zones with Get Micro Tools. This caption stays here! <span class="text-white/60">#reels #growth</span>
+          Filmed in Compton '96. I still miss these guys! ...
         </p>
-      </div>
-
-      {/* Audio Track Pill */}
-      <div class="flex items-center gap-2 pointer-events-auto bg-white/10 hover:bg-white/15 backdrop-blur-md rounded-full pl-2.5 pr-3.5 py-1 w-fit max-w-[145px] border border-white/10 transition-colors duration-150 cursor-pointer">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="text-white shrink-0">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-        </svg>
-        <div class="overflow-hidden whitespace-nowrap relative w-full text-[11px] font-medium text-white tracking-wide mask-gradient">
-          <div class="inline-flex gap-4 animate-marquee">
-            <span>Original Audio • your_username</span>
-            <span>Original Audio • your_username</span>
-          </div>
-        </div>
       </div>
     </div>
 
-    {/* Right-Side Interaction Column */}
-    <div class="absolute right-2.5 bottom-6 flex flex-col items-center gap-5 z-30 select-none">
+    {/* Right-Side Interaction Column Overlay (made more compact and smaller for realism) */}
+    <div id="overlay-right-action" class="reels-overlay absolute right-2.5 bottom-6 flex flex-col items-center gap-2.5 z-30 select-none bottom-overlay-area">
       
       {/* Like Button */}
-      <div class="flex flex-col items-center gap-1 group pointer-events-auto cursor-pointer">
-        <button class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752a1 1 0 0 1-1 0c-.438-.283-1.791-1.509-4.303-3.752C4.152 14.081 1.5 12.194 1.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.208.28.569.422.916.361.348-.06.63-.3.73-.63a4.21 4.21 0 0 1 3.675-1.941"></path>
+      <div class="flex flex-col items-center gap-0.5 group pointer-events-auto cursor-pointer">
+        <button class="p-1 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
         </button>
-        <span class="text-[11px] font-semibold text-white drop-shadow-sm">1.2M</span>
+        <span class="text-[9px] font-semibold text-white drop-shadow-sm leading-none">66.5K</span>
       </div>
 
       {/* Comment Button */}
-      <div class="flex flex-col items-center gap-1 group pointer-events-auto cursor-pointer">
-        <button class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+      <div class="flex flex-col items-center gap-0.5 group pointer-events-auto cursor-pointer">
+        <button class="p-1 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
             <path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22l-1.38-4.992Z"></path>
           </svg>
         </button>
-        <span class="text-[11px] font-semibold text-white drop-shadow-sm">8,421</span>
+        <span class="text-[9px] font-semibold text-white drop-shadow-sm leading-none">921</span>
+      </div>
+
+      {/* Repost/Remix Button */}
+      <div class="flex flex-col items-center gap-0.5 group pointer-events-auto cursor-pointer">
+        <button class="p-1 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 1 21 5 17 9"></polyline>
+            <path d="M3 11v-2a4 4 0 0 1 4-4h14"></path>
+            <polyline points="7 23 3 19 7 15"></polyline>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+          </svg>
+        </button>
+        <span class="text-[9px] font-semibold text-white drop-shadow-sm leading-none">569</span>
       </div>
 
       {/* Share Button */}
-      <div class="flex flex-col items-center gap-1 group pointer-events-auto cursor-pointer">
-        <button class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
-            <line x1="22" y1="3" x2="9.218" y2="10.083"></line>
-            <polygon points="11.698 20.334 22 3 2 3 9.218 10.083 11.698 20.334"></polygon>
+      <div class="flex flex-col items-center gap-0.5 group pointer-events-auto cursor-pointer">
+        <button class="p-1 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
         </button>
-        <span class="text-[11px] font-semibold text-white drop-shadow-sm">128K</span>
+        <span class="text-[9px] font-semibold text-white drop-shadow-sm leading-none">7,845</span>
       </div>
 
       {/* Save Button */}
-      <div class="flex flex-col items-center group pointer-events-auto cursor-pointer">
-        <button class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="flex flex-col items-center gap-0.5 group pointer-events-auto cursor-pointer">
+        <button class="p-1 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="20 21 12 13.44 4 21 4 3 20 3 20 21"></polygon>
           </svg>
         </button>
+        <span class="text-[9px] font-semibold text-white drop-shadow-sm leading-none">2,732</span>
       </div>
 
       {/* More Button */}
       <div class="flex flex-col items-center group pointer-events-auto cursor-pointer">
-        <button class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <circle cx="12" cy="12" r="1.25" fill="currentColor"></circle>
-            <circle cx="6" cy="12" r="1.25" fill="currentColor"></circle>
-            <circle cx="18" cy="12" r="1.25" fill="currentColor"></circle>
+        <button class="p-1 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 text-white drop-shadow-md">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="5" r="1.5" fill="currentColor"></circle>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+            <circle cx="12" cy="19" r="1.5" fill="currentColor"></circle>
           </svg>
         </button>
       </div>
 
       {/* Audio Cover Disc (Spinning) */}
-      <div class="w-8 h-8 rounded-[6px] border-2 border-white/90 overflow-hidden bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 shadow-md flex items-center justify-center pointer-events-auto cursor-pointer animate-spin-slow mt-1.5 shrink-0">
-        <div class="w-4 h-4 rounded-full bg-black/60 border border-white/20 flex items-center justify-center">
-          <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-        </div>
+      <div class="w-6 h-6 rounded-[6px] border border-white/95 overflow-hidden bg-zinc-800 shadow-md flex items-center justify-center pointer-events-auto cursor-pointer animate-spin-slow mt-0.5 shrink-0">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-400">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
       </div>
 
     </div>
 
-    {/* Home Swipe Indicator Line */}
-    <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-28 h-[4.5px] bg-white/50 rounded-full z-30 pointer-events-none select-none"></div>
+    {/* Hidden Bottom CTA Overlay to prevent JS errors */}
+    <div id="overlay-bottom-cta" class="hidden"></div>
+
+    {/* Bottom Navigation Overlay */}
+    <div id="overlay-bottom-nav" class="reels-overlay absolute bottom-0 left-0 right-0 h-12 bg-black border-t border-white/10 text-white z-40 flex items-center justify-around select-none">
+      {/* Home Button */}
+      <button class="flex items-center justify-center w-10 h-10 text-white/90 hover:text-white active:scale-90 transition-all">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+
+      {/* Reels Button (Active/Selected) */}
+      <button class="flex items-center justify-center w-10 h-10 text-white active:scale-90 transition-all">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 4h-2l-2-3H9L7 4H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V8h14v10zm-9-8l6 4-6 4v-8z"/>
+        </svg>
+      </button>
+
+      {/* Create Button */}
+      <button class="flex items-center justify-center w-10 h-10 text-white/90 hover:text-white active:scale-90 transition-all">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </button>
+
+      {/* Search Button */}
+      <button class="flex items-center justify-center w-10 h-10 text-white/90 hover:text-white active:scale-90 transition-all">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+
+      {/* Profile Button with notification dot */}
+      <button class="flex items-center justify-center w-10 h-10 active:scale-90 transition-all">
+        <div class="relative w-6 h-6 rounded-full border border-white/60 overflow-hidden bg-zinc-800 flex items-center justify-center shrink-0">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white/80">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="absolute bottom-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full border border-black"></span>
+        </div>
+      </button>
+    </div>
+
+    {/* Portrait Feed Views Overlay */}
+    <div id="portrait-views-overlay" class="absolute left-3 bottom-3 z-30 hidden items-center gap-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full text-white text-[11px] font-medium pointer-events-none select-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <span>67.7K</span>
+    </div>
 
   </div>
 </div>
 
 <style>
-  /* Audio Marquee Animation */
-  @keyframes marquee {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, 0, 0); }
-  }
-
-  .animate-marquee {
-    animation: marquee 8s linear infinite;
-    display: inline-flex;
-    min-width: max-content;
+  /* Hide Reels overlays in portrait feed mode */
+  #mockup-container.format-portrait .reels-overlay {
+    display: none !important;
   }
 
   /* Slow rotation for the audio disc */
@@ -225,9 +257,31 @@
     animation: spin-slow 8s linear infinite;
   }
 
-  /* Fade mask for audio marquee text */
-  .mask-gradient {
-    -webkit-mask-image: linear-gradient(to right, white 80%, transparent 100%);
-    mask-image: linear-gradient(to right, white 80%, transparent 100%);
+  /* Dynamic spacing and positioning styles for Instagram overlay control system */
+  .bottom-overlay-area {
+    bottom: 1rem; /* Default: 16px */
+    transition: bottom 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Adjust bottom elements depending on active nav class state on container */
+  #mockup-container.show-bottom-nav .bottom-overlay-area {
+    bottom: 3.75rem; /* 60px (48px nav + 12px spacing) for realistic lower placement */
+  }
+
+  /* Viewport responsiveness for shorter screens to prevent vertical overflow */
+  @media (max-height: 820px) {
+    #mockup-container, #mockup-header-container {
+      max-width: 320px;
+    }
+  }
+  @media (max-height: 720px) {
+    #mockup-container, #mockup-header-container {
+      max-width: 285px;
+    }
+  }
+  @media (max-height: 620px) {
+    #mockup-container, #mockup-header-container {
+      max-width: 240px;
+    }
   }
 </style>
